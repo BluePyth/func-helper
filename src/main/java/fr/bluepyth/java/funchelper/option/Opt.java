@@ -2,13 +2,13 @@ package fr.bluepyth.java.funchelper.option;
 
 import fr.bluepyth.java.funchelper.function.F1;
 
-public abstract class Option<T> {
+public abstract class Opt<T> {
 	
-	public static <A> Option<A> from(A a) {
+	public static <A> Opt<A> toOpt(A a) {
 		return a == null ? new None<A>() : new Some<A>(a);
 	}
 	
-	public static <A> None<A> none() {
+	public static <A> Opt<A> none() {
 		return new None<A>();
 	}
 	
@@ -16,18 +16,19 @@ public abstract class Option<T> {
 	
 	public abstract T get();
 	
-	public <U> Option<U> map(F1<T, U> f) {
+	public <U> Opt<U> map(F1<T, U> f) {
 		if(isDefined())
-			return from(f.apply(get()));
+			return toOpt(f.apply(get()));
 		else
 			return none();
 	}
 	
-	public Option<T> or(Option<T> other) {
+	@SuppressWarnings("unchecked")
+	public <A extends T> Opt<T> or(Opt<A> other) {
 		if(isDefined())
 			return this;
 		else
-			return other;
+			return (Opt<T>) other;
 	}
 	
 	public T getOrElse(T defaultValue) {
@@ -37,7 +38,7 @@ public abstract class Option<T> {
 			return defaultValue;
 	}
 	
-	public static class Some<T> extends Option<T> {
+	public static class Some<T> extends Opt<T> {
 
 		private final T value;
 		
@@ -57,7 +58,7 @@ public abstract class Option<T> {
 		
 	}
 	
-	public static class None<T> extends Option<T> {
+	public static class None<T> extends Opt<T> {
 
 		@Override
 		public boolean isDefined() {

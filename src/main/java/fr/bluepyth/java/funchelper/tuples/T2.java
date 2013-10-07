@@ -2,7 +2,7 @@ package fr.bluepyth.java.funchelper.tuples;
 
 public class T2<Left,Right> {
 	
-	public static <L,R> T2<L,R> tuple(L left, R right) {
+	public static <L,R> T2<L,R> t2(L left, R right) {
 		return new T2<L, R>(left, right);
 	}
 	

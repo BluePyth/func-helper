@@ -1,7 +1,7 @@
 package fr.bluepyth.java.funchelper.function;
 
 
-public abstract class FunComposer<A,B> {
+public abstract class FunComposer<A,B> implements F1<A,B> {
 
 	public static <A,B> FunComposer<A,B> compose(F1<A,B> f1) {
 		return ComposerNil.<B>nil().prepend(f1);
@@ -19,8 +19,6 @@ public abstract class FunComposer<A,B> {
 		return compose(f2, f3, f4).prepend(f1);
 	}
 	
-	public abstract B execute(A arg);
-
 	public <T> FunComposer<T,B> prepend(F1<T,A> previousAction) {
 		return new ComposerCons<T,A,B>(previousAction, this);
 	}
@@ -37,8 +35,8 @@ public abstract class FunComposer<A,B> {
 		}
 
 		@Override
-		public B execute(A arg) {
-			return next.execute(action.apply(arg));
+		public B apply(A arg) {
+			return next.apply(action.apply(arg));
 		}
 		
 	}
@@ -50,7 +48,7 @@ public abstract class FunComposer<A,B> {
 		}
 
 		@Override
-		public A execute(A arg) {
+		public A apply(A arg) {
 			return arg;
 		}
 
