@@ -1,5 +1,6 @@
 package fr.bluepyth.java.funchelper.trylike;
 
+import static fr.bluepyth.java.funchelper.Nothing.nothing;
 import fr.bluepyth.java.funchelper.Nothing;
 import fr.bluepyth.java.funchelper.function.F1;
 
@@ -16,7 +17,7 @@ public abstract class Try<T> {
 	}
 	
 	public static Success<Nothing> emptySuccess() {
-		return new Success<Nothing>(new Nothing());
+		return new Success<Nothing>(nothing);
 	}
 	
 	public static <E extends Exception, T> Failure<E, T> failure(E exception) {
