@@ -25,14 +25,19 @@ public abstract class IList<T> {
 	public IList<T> reverse() {
 		return reverseAcc(IList.<T>nil());
 	}
-	public abstract IList<T> reverseAcc(IList<T> acc);
+	protected abstract IList<T> reverseAcc(IList<T> acc);
 	
 	public IList<T> filter(F1<T, Boolean> predicate) {
 		return filterAcc(predicate, IList.<T>nil());
 	}
-	public abstract IList<T> filterAcc(F1<T, Boolean> p, IList<T> acc);
+	protected abstract IList<T> filterAcc(F1<T, Boolean> p, IList<T> acc);
 	
-	// filter, map, foreach?, mkString?
+	public <U> IList<U> map(F1<T,U> f) {
+		return mapAcc(f, IList.<U>nil());
+	}
+	protected abstract <U> IList<U> mapAcc(F1<T,U> f, IList<U> acc);
+	
+	// foreach?, mkString?
 	public IList<T> prepend(T element) {
 		return new Cons<T>(element, this);
 	}
@@ -76,6 +81,11 @@ public abstract class IList<T> {
 		public IList<T> filterAcc(F1<T, Boolean> p, IList<T> acc) {
 			return tail.filterAcc(p, p.apply(head) ? acc.prepend(head) : acc);
 		}
+
+		@Override
+		protected <U> IList<U> mapAcc(F1<T, U> f, IList<U> acc) {
+			return tail.mapAcc(f, acc.prepend(f.apply(head)));
+		}
 		
 	}
 	
@@ -108,6 +118,11 @@ public abstract class IList<T> {
 
 		@Override
 		public IList<T> filterAcc(F1<T, Boolean> p, IList<T> acc) {
+			return acc.reverse();
+		}
+
+		@Override
+		protected <U> IList<U> mapAcc(F1<T, U> f, IList<U> acc) {
 			return acc.reverse();
 		}
 		
