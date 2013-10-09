@@ -3,6 +3,8 @@ package fr.bluepyth.java.funchelper.trylike;
 import static fr.bluepyth.java.funchelper.Nothing.nothing;
 import fr.bluepyth.java.funchelper.Nothing;
 import fr.bluepyth.java.funchelper.function.F1;
+import fr.bluepyth.java.funchelper.function.F2;
+import fr.bluepyth.java.funchelper.immutable.IList;
 
 public abstract class Try<T> {
 	
@@ -22,6 +24,25 @@ public abstract class Try<T> {
 	
 	public static <E extends Exception, T> Failure<E, T> failure(E exception) {
 		return new Failure<E, T>(exception);
+	}
+	
+	public static <T> Try<IList<T>> trySeq(IList<Try<T>> list) {
+		return list.foldLeft(success(IList.<T>nil()), new F2<Try<IList<T>>, Try<T>, Try<IList<T>>>() {
+			public Try<IList<T>> apply(Try<IList<T>> acc, final Try<T> listElem) {
+				
+				return acc.map(new FTry<IList<T>, IList<T>>() {
+					public Try<IList<T>> apply(final IList<T> list) {
+						
+						return listElem.map(new FTry<T, IList<T>>() {
+							public Try<IList<T>> apply(T element) {
+								
+								return success(list.prepend(element));
+							}
+						});
+					}
+				});
+			}
+		});
 	}
 	
 	public <A> Try<A> map(F1<T, Try<A>> lambda) {
