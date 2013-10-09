@@ -1,7 +1,12 @@
 package fr.bluepyth.java.funchelper.immutable;
 
-import fr.bluepyth.java.funchelper.function.F1;
+import static fr.bluepyth.java.funchelper.Nothing.nothing;
 
+import java.util.concurrent.atomic.AtomicBoolean;
+
+import fr.bluepyth.java.funchelper.Nothing;
+import fr.bluepyth.java.funchelper.function.F1;
+import fr.bluepyth.java.funchelper.function.F2;
 
 public abstract class IList<T> {
 	
@@ -13,6 +18,14 @@ public abstract class IList<T> {
 		IList<U> list = nil();
 		for(int i = elements.length - 1; i >= 0; i--) {
 			list = list.prepend(elements[i]);
+		}
+		return list;
+	}
+	
+	public static IList<Integer> range(int from, int to) {
+		IList<Integer> list = nil();
+		for(int i = to - 1; i >= from ; i--) {
+			list = list.prepend(i);
 		}
 		return list;
 	}
@@ -36,8 +49,43 @@ public abstract class IList<T> {
 		return mapAcc(f, IList.<U>nil());
 	}
 	protected abstract <U> IList<U> mapAcc(F1<T,U> f, IList<U> acc);
+
+	public String mkString(String sep) {
+		return mkString("", sep, "");
+	}
 	
-	// foreach?, mkString?
+	public String mkString(String start, final String sep, String end) {
+		final AtomicBoolean first = new AtomicBoolean(true); 
+		final StringBuilder sb = new StringBuilder();
+		
+		sb.append(start);
+		
+		foreach(new F1<T, Nothing>() {
+			public Nothing apply(T input) {
+				if(first.get()) {
+					first.set(false);
+				} else {
+					sb.append(sep);
+				}
+				sb.append(input);
+				return nothing;
+			}
+		});
+		
+		sb.append(end);
+		
+		return sb.toString();
+		
+	}
+	
+	public abstract Nothing foreach(F1<T, Nothing> f);
+	
+	public <U> U foldLeft(U init, F2<U, T, U> f) {
+		return foldLeftAcc(f, init);
+	}
+	protected abstract <U> U foldLeftAcc(F2<U,T,U> f, U acc);
+	
+	// mkString?
 	public IList<T> prepend(T element) {
 		return new Cons<T>(element, this);
 	}
@@ -86,6 +134,17 @@ public abstract class IList<T> {
 		protected <U> IList<U> mapAcc(F1<T, U> f, IList<U> acc) {
 			return tail.mapAcc(f, acc.prepend(f.apply(head)));
 		}
+
+		@Override
+		protected <U> U foldLeftAcc(F2<U, T, U> f, U acc) {
+			return tail.foldLeftAcc(f, f.apply(acc, head));
+		}
+
+		@Override
+		public Nothing foreach(F1<T, Nothing> f) {
+			f.apply(head);
+			return tail.foreach(f);
+		}
 		
 	}
 	
@@ -124,6 +183,16 @@ public abstract class IList<T> {
 		@Override
 		protected <U> IList<U> mapAcc(F1<T, U> f, IList<U> acc) {
 			return acc.reverse();
+		}
+
+		@Override
+		protected <U> U foldLeftAcc(F2<U, T, U> f, U acc) {
+			return acc;
+		}
+
+		@Override
+		public Nothing foreach(F1<T, Nothing> f) {
+			return nothing;
 		}
 		
 	}
