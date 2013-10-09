@@ -8,12 +8,30 @@ import fr.bluepyth.java.funchelper.Nothing;
 import fr.bluepyth.java.funchelper.function.F1;
 import fr.bluepyth.java.funchelper.function.F2;
 
+/**
+ * Immutable linked list. It resembles Scala's List.
+ *
+ * As of now, this class is NOT optimized at all. I've started to implement it from scratch
+ * for fun, and as an exercise to apply my functional knowledge.
+ * 
+ * Thus, it is suitable for small lists.
+ *
+ * @param <T> The type of the elements of the list
+ */
 public abstract class IList<T> {
 	
+	/**
+	 * @return the empty list
+	 */
 	public static <U> IList<U> nil() {
 		return new Nil<U>();
 	}
 	
+	/**
+	 * Builds a list from a list of elements.
+	 * @param elements the elements that should be added to the list
+	 * @return the expected list
+	 */
 	public static <U> IList<U> list(U... elements) {
 		IList<U> list = nil();
 		for(int i = elements.length - 1; i >= 0; i--) {
@@ -22,9 +40,26 @@ public abstract class IList<T> {
 		return list;
 	}
 	
+	/**
+	 * Returns a list containing numbers from 'from' to 'to-1'
+	 * 
+	 * @param from the lower bound
+	 * @param to the upper bound (excluded)
+	 * @return the expected list
+	 */
 	public static IList<Integer> range(int from, int to) {
+		return rangeIncl(from, to - 1);
+	}
+	
+	/**
+	 * Returns a list containing numbers from 'from' to 'to' included
+	 * @param from the lower bound
+	 * @param to the upper bound
+	 * @return the expected list
+	 */
+	public static IList<Integer> rangeIncl(int from, int to) {
 		IList<Integer> list = nil();
-		for(int i = to - 1; i >= from ; i--) {
+		for(int i = to; i >= from; i--) {
 			list = list.prepend(i);
 		}
 		return list;
