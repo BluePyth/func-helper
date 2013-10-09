@@ -1,5 +1,7 @@
 package fr.bluepyth.java.funchelper.immutable;
 
+import fr.bluepyth.java.funchelper.function.F1;
+
 
 public abstract class IList<T> {
 	
@@ -19,7 +21,18 @@ public abstract class IList<T> {
 	public abstract IList<T> tail();
 	public abstract boolean isEmpty();
 	public abstract T get(int i);
-	// filter, map, foreach?
+	
+	public IList<T> reverse() {
+		return reverseAcc(IList.<T>nil());
+	}
+	public abstract IList<T> reverseAcc(IList<T> acc);
+	
+	public IList<T> filter(F1<T, Boolean> predicate) {
+		return filterAcc(predicate, IList.<T>nil());
+	}
+	public abstract IList<T> filterAcc(F1<T, Boolean> p, IList<T> acc);
+	
+	// filter, map, foreach?, mkString?
 	public IList<T> prepend(T element) {
 		return new Cons<T>(element, this);
 	}
@@ -53,6 +66,16 @@ public abstract class IList<T> {
 		public T get(int i) {
 			return i == 0 ? head : tail.get(i - 1);
 		}
+
+		@Override
+		public IList<T> reverseAcc(IList<T> acc) {
+			return tail.reverseAcc(acc.prepend(head));
+		}
+
+		@Override
+		public IList<T> filterAcc(F1<T, Boolean> p, IList<T> acc) {
+			return tail.filterAcc(p, p.apply(head) ? acc.prepend(head) : acc);
+		}
 		
 	}
 	
@@ -76,6 +99,16 @@ public abstract class IList<T> {
 		@Override
 		public T get(int i) {
 			throw new IndexOutOfBoundsException();
+		}
+
+		@Override
+		public IList<T> reverseAcc(IList<T> acc) {
+			return acc;
+		}
+
+		@Override
+		public IList<T> filterAcc(F1<T, Boolean> p, IList<T> acc) {
+			return acc.reverse();
 		}
 		
 	}
