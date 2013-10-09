@@ -1,5 +1,7 @@
 package fr.bluepyth.java.funchelper.option;
 
+import java.util.NoSuchElementException;
+
 import fr.bluepyth.java.funchelper.function.F1;
 
 public abstract class Opt<T> {
@@ -67,7 +69,7 @@ public abstract class Opt<T> {
 
 		@Override
 		public T get() {
-			throw new UnsupportedOperationException();
+			throw new NoSuchElementException();
 		}
 		
 	}
