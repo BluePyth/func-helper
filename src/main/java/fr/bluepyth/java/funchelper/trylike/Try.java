@@ -42,6 +42,10 @@ public abstract class Try<T> {
 					}
 				});
 			}
+		}).map(new F1<IList<T>, Try<IList<T>>>() {
+			public Try<IList<T>> apply(IList<T> input) {
+				return success(input.reverse());
+			}
 		});
 	}
 	

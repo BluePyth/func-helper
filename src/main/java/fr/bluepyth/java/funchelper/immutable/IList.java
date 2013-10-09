@@ -85,9 +85,13 @@ public abstract class IList<T> {
 	}
 	protected abstract <U> U foldLeftAcc(F2<U,T,U> f, U acc);
 	
-	// mkString?
 	public IList<T> prepend(T element) {
 		return new Cons<T>(element, this);
+	}
+	
+	@Override
+	public String toString() {
+		return mkString("List(", ",", ")");
 	}
 	
 	public static class Cons<T> extends IList<T> {
@@ -146,6 +150,22 @@ public abstract class IList<T> {
 			return tail.foreach(f);
 		}
 		
+		@Override
+		public boolean equals(Object obj) {
+			if(!(obj instanceof IList))
+				return false;
+			
+			IList<?> other = (IList<?>) obj;
+			
+			if(other.isEmpty())
+				return false;
+			
+			if(head.equals(other.head()))
+				return tail.equals(other.tail());
+			else
+				return false;
+		}
+		
 	}
 	
 	public static class Nil<T> extends IList<T> {
@@ -195,6 +215,13 @@ public abstract class IList<T> {
 			return nothing;
 		}
 		
+		@Override
+		public boolean equals(Object obj) {
+			if(!(obj instanceof IList))
+				return false;
+			else 
+				return ((IList<?>) obj).isEmpty();
+		}
 	}
 	
 }
