@@ -1,0 +1,293 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Func-helper by BluePyth</title>
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="javascripts/respond.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <!--[if lt IE 8]>
+    <link rel="stylesheet" href="stylesheets/ie.css">
+    <![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+  </head>
+  <body>
+      <div id="header">
+        <nav>
+          <li class="fork"><a href="https://github.com/BluePyth/func-helper">View On GitHub</a></li>
+          <li class="downloads"><a href="https://github.com/BluePyth/func-helper/zipball/master">ZIP</a></li>
+          <li class="downloads"><a href="https://github.com/BluePyth/func-helper/tarball/master">TAR</a></li>
+          <li class="title">DOWNLOADS</li>
+        </nav>
+      </div><!-- end header -->
+
+    <div class="wrapper">
+
+      <section>
+        <div id="title">
+          <h1>Func-helper</h1>
+          <p>Functional helpers for Java</p>
+          <hr>
+          <span class="credits left">Project maintained by <a href="https://github.com/BluePyth">BluePyth</a></span>
+          <span class="credits right">Hosted on GitHub Pages &mdash; Theme by <a href="https://twitter.com/michigangraham">mattgraham</a></span>
+        </div>
+
+        <h2>
+<a name="functional-helpers-for-java" class="anchor" href="#functional-helpers-for-java"><span class="octicon octicon-link"></span></a>Functional helpers for java</h2>
+
+<p><a href="https://travis-ci.org/BluePyth/func-helper"><img src="https://travis-ci.org/BluePyth/func-helper.png?branch=master" alt="Build Status"></a></p>
+
+<p>This project is a really simple functional library. It provides only the building blocks that I lacked while working on a project. It is mostly inspired by what I've seen and used in the Scala language.</p>
+
+<h2>
+<a name="get-it" class="anchor" href="#get-it"><span class="octicon octicon-link"></span></a>Get it</h2>
+
+<p>Func-helper is available in my maven repository as snapshots for now (API shouldn't break but you never know. GroupId expected to change for the first stable release).</p>
+
+<div class="highlight highlight-xml"><pre><span class="c">&lt;!-- Repository --&gt;</span>
+<span class="nt">&lt;repositories&gt;</span>
+    <span class="nt">&lt;repository&gt;</span>
+        <span class="nt">&lt;id&gt;</span>bluepyth<span class="nt">&lt;/id&gt;</span>
+        <span class="nt">&lt;name&gt;</span>BluePyth Repository<span class="nt">&lt;/name&gt;</span>
+        <span class="nt">&lt;url&gt;</span>http://repository.bluepyth.fr/content/repositories/snapshots<span class="nt">&lt;/url&gt;</span>
+    <span class="nt">&lt;snapshots&gt;</span>
+        <span class="nt">&lt;enabled&gt;</span>true<span class="nt">&lt;/enabled&gt;</span>
+        <span class="nt">&lt;updatePolicy&gt;</span>always<span class="nt">&lt;/updatePolicy&gt;</span>
+    <span class="nt">&lt;/snapshots&gt;</span>
+    <span class="nt">&lt;/repository&gt;</span>
+<span class="nt">&lt;/repositories&gt;</span>
+
+<span class="c">&lt;!-- Dependency --&gt;</span>
+<span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>fr.bluepyth.java<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>func-helper<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;version&gt;</span>1.0.0-SNAPSHOT<span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+</pre></div>
+
+<h2>
+<a name="features" class="anchor" href="#features"><span class="octicon octicon-link"></span></a>Features</h2>
+
+<h3>
+<a name="functions" class="anchor" href="#functions"><span class="octicon octicon-link"></span></a>Functions</h3>
+
+<p>As building blocks of functional programming, they are present in this library. They are easy to use, but until Java 8, the syntax will look very heavy.</p>
+
+<div class="highlight highlight-java"><pre><span class="kn">import</span> <span class="nn">static</span> <span class="n">fr</span><span class="o">.</span><span class="na">bluepyth</span><span class="o">.</span><span class="na">java</span><span class="o">.</span><span class="na">funchelper</span><span class="o">.</span><span class="na">function</span><span class="o">.</span><span class="na">FunComposer</span><span class="o">.</span><span class="na">compose</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">fr.bluepyth.java.funchelper.function.F1</span><span class="o">;</span>
+
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Functions</span> <span class="o">{</span>
+
+    <span class="n">F1</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;</span> <span class="n">intToString</span> <span class="o">=</span> <span class="k">new</span> <span class="n">F1</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;()</span> <span class="o">{</span>
+        <span class="nd">@Override</span>
+        <span class="kd">public</span> <span class="n">String</span> <span class="nf">apply</span><span class="o">(</span><span class="n">Integer</span> <span class="n">input</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="n">String</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="n">input</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">};</span>
+
+    <span class="n">F1</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Integer</span><span class="o">&gt;</span> <span class="n">stringToInt</span> <span class="o">=</span> <span class="k">new</span> <span class="n">F1</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Integer</span><span class="o">&gt;()</span> <span class="o">{</span>
+        <span class="nd">@Override</span>
+        <span class="kd">public</span> <span class="n">Integer</span> <span class="nf">apply</span><span class="o">(</span><span class="n">String</span> <span class="n">input</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="n">Integer</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="n">input</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">};</span>
+
+    <span class="kd">public</span> <span class="nf">Functions</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">intToString</span><span class="o">.</span><span class="na">apply</span><span class="o">(</span><span class="mi">2</span><span class="o">);</span>   <span class="c1">// =&gt; "2"</span>
+        <span class="n">stringToInt</span><span class="o">.</span><span class="na">apply</span><span class="o">(</span><span class="s">"3"</span><span class="o">);</span> <span class="c1">// =&gt; 3</span>
+
+        <span class="n">compose</span><span class="o">(</span><span class="n">intToString</span><span class="o">,</span> <span class="n">stringToInt</span><span class="o">).</span><span class="na">apply</span><span class="o">(</span><span class="mi">2</span><span class="o">);</span> <span class="c1">// =&gt; 2</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+<h3>
+<a name="opt" class="anchor" href="#opt"><span class="octicon octicon-link"></span></a>Opt</h3>
+
+<p>Option[T] is a very handy structure in Scala. Guava has its own Optional, but I didn't want to depend on any lib. Thus, Opt</p>
+
+<div class="highlight highlight-java"><pre><span class="kn">import</span> <span class="nn">static</span> <span class="n">fr</span><span class="o">.</span><span class="na">bluepyth</span><span class="o">.</span><span class="na">java</span><span class="o">.</span><span class="na">funchelper</span><span class="o">.</span><span class="na">option</span><span class="o">.</span><span class="na">Opt</span><span class="o">.</span><span class="na">none</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">static</span> <span class="n">fr</span><span class="o">.</span><span class="na">bluepyth</span><span class="o">.</span><span class="na">java</span><span class="o">.</span><span class="na">funchelper</span><span class="o">.</span><span class="na">option</span><span class="o">.</span><span class="na">Opt</span><span class="o">.</span><span class="na">toOpt</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">fr.bluepyth.java.funchelper.function.F1</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">fr.bluepyth.java.funchelper.option.Opt</span><span class="o">;</span>
+
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Option</span> <span class="o">{</span>
+
+    <span class="n">F1</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;</span> <span class="n">intToString</span> <span class="o">=</span> <span class="k">new</span> <span class="n">F1</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;()</span> <span class="o">{</span>
+        <span class="nd">@Override</span>
+        <span class="kd">public</span> <span class="n">String</span> <span class="nf">apply</span><span class="o">(</span><span class="n">Integer</span> <span class="n">input</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="n">String</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="n">input</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">};</span>
+
+    <span class="kd">public</span> <span class="nf">Option</span><span class="o">()</span> <span class="o">{</span>
+
+        <span class="n">Opt</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">intOpt</span> <span class="o">=</span> <span class="n">toOpt</span><span class="o">(</span><span class="kc">null</span><span class="o">);</span> <span class="c1">// =&gt; None</span>
+        <span class="n">Opt</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">intOpt2</span> <span class="o">=</span> <span class="n">toOpt</span><span class="o">(</span><span class="mi">3</span><span class="o">);</span>   <span class="c1">// =&gt; Some(3)</span>
+
+        <span class="n">Opt</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">choose</span> <span class="o">=</span> <span class="n">intOpt</span><span class="o">.</span><span class="na">or</span><span class="o">(</span><span class="n">intOpt2</span><span class="o">);</span> <span class="c1">// =&gt; Some(3)</span>
+
+        <span class="n">Opt</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">map</span> <span class="o">=</span> <span class="n">choose</span><span class="o">.</span><span class="na">map</span><span class="o">(</span><span class="n">intToString</span><span class="o">);</span> <span class="c1">// =&gt; Some("3")</span>
+
+        <span class="n">map</span><span class="o">.</span><span class="na">isDefined</span><span class="o">();</span> <span class="c1">// =&gt; true</span>
+        <span class="n">intOpt</span><span class="o">.</span><span class="na">getOrElse</span><span class="o">(</span><span class="mi">3</span><span class="o">);</span> <span class="c1">// =&gt; 3</span>
+        <span class="n">intOpt</span><span class="o">.</span><span class="na">get</span><span class="o">();</span> <span class="c1">// =&gt; NoSuchElementException</span>
+
+        <span class="n">Opt</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">noneOpt</span> <span class="o">=</span> <span class="n">none</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+<h3>
+<a name="ilist" class="anchor" href="#ilist"><span class="octicon octicon-link"></span></a>IList</h3>
+
+<p>This construct is an immutable linked list. It is based on the same implementation as Scala's List.</p>
+
+<div class="highlight highlight-java"><pre><span class="kn">import</span> <span class="nn">static</span> <span class="n">fr</span><span class="o">.</span><span class="na">bluepyth</span><span class="o">.</span><span class="na">java</span><span class="o">.</span><span class="na">funchelper</span><span class="o">.</span><span class="na">Nothing</span><span class="o">.</span><span class="na">nothing</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">static</span> <span class="n">fr</span><span class="o">.</span><span class="na">bluepyth</span><span class="o">.</span><span class="na">java</span><span class="o">.</span><span class="na">funchelper</span><span class="o">.</span><span class="na">immutable</span><span class="o">.</span><span class="na">IList</span><span class="o">.</span><span class="na">list</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">static</span> <span class="n">fr</span><span class="o">.</span><span class="na">bluepyth</span><span class="o">.</span><span class="na">java</span><span class="o">.</span><span class="na">funchelper</span><span class="o">.</span><span class="na">immutable</span><span class="o">.</span><span class="na">IList</span><span class="o">.</span><span class="na">nil</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">static</span> <span class="n">fr</span><span class="o">.</span><span class="na">bluepyth</span><span class="o">.</span><span class="na">java</span><span class="o">.</span><span class="na">funchelper</span><span class="o">.</span><span class="na">immutable</span><span class="o">.</span><span class="na">IList</span><span class="o">.</span><span class="na">range</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">static</span> <span class="n">fr</span><span class="o">.</span><span class="na">bluepyth</span><span class="o">.</span><span class="na">java</span><span class="o">.</span><span class="na">funchelper</span><span class="o">.</span><span class="na">immutable</span><span class="o">.</span><span class="na">IList</span><span class="o">.</span><span class="na">rangeIncl</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">fr.bluepyth.java.funchelper.Nothing</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">fr.bluepyth.java.funchelper.function.F1</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">fr.bluepyth.java.funchelper.function.F2</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">fr.bluepyth.java.funchelper.immutable.IList</span><span class="o">;</span>
+
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ImmutableList</span> <span class="o">{</span>
+
+    <span class="kd">public</span> <span class="nf">ImmutableList</span><span class="o">()</span> <span class="o">{</span>
+
+        <span class="n">nil</span><span class="o">();</span>  <span class="c1">// =&gt; empty list</span>
+        <span class="n">IList</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">l</span> <span class="o">=</span> <span class="n">list</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">);</span> <span class="c1">// =&gt; List(1,2,3)</span>
+        <span class="n">range</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="mi">3</span><span class="o">);</span> <span class="c1">// List(0,1,2)</span>
+        <span class="n">rangeIncl</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="mi">3</span><span class="o">);</span> <span class="c1">// List(0,1,2,3)</span>
+
+        <span class="n">l</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="mi">1</span><span class="o">);</span> <span class="c1">// =&gt; 2</span>
+        <span class="n">l</span><span class="o">.</span><span class="na">head</span><span class="o">();</span> <span class="c1">// =&gt; 1</span>
+        <span class="n">l</span><span class="o">.</span><span class="na">tail</span><span class="o">();</span> <span class="c1">// =&gt; List(2,3)</span>
+        <span class="n">l</span><span class="o">.</span><span class="na">isEmpty</span><span class="o">();</span> <span class="c1">// =&gt; false</span>
+        <span class="n">l</span><span class="o">.</span><span class="na">reverse</span><span class="o">();</span> <span class="c1">// =&gt; List(3,2,1)</span>
+        <span class="n">l</span><span class="o">.</span><span class="na">mkString</span><span class="o">(</span><span class="s">"-"</span><span class="o">);</span> <span class="c1">// =&gt; 1-2-3</span>
+        <span class="n">l</span><span class="o">.</span><span class="na">mkString</span><span class="o">(</span><span class="s">"["</span><span class="o">,</span> <span class="s">":"</span><span class="o">,</span> <span class="s">"]"</span><span class="o">);</span> <span class="c1">// =&gt; [1:2:3]</span>
+        <span class="n">l</span><span class="o">.</span><span class="na">prepend</span><span class="o">(</span><span class="mi">0</span><span class="o">);</span> <span class="c1">// =&gt; List(0,1,2,3)</span>
+
+        <span class="n">l</span><span class="o">.</span><span class="na">map</span><span class="o">(</span><span class="n">intToString</span><span class="o">);</span> <span class="c1">// =&gt; List("1","2","3")</span>
+        <span class="n">l</span><span class="o">.</span><span class="na">filter</span><span class="o">(</span><span class="n">isOdd</span><span class="o">);</span> <span class="c1">// =&gt; List(1,3)</span>
+        <span class="n">l</span><span class="o">.</span><span class="na">foreach</span><span class="o">(</span><span class="n">print</span><span class="o">);</span> <span class="c1">// =&gt; prints 1, then 2, then 3</span>
+        <span class="n">l</span><span class="o">.</span><span class="na">foldLeft</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="n">sum</span><span class="o">);</span> <span class="c1">// =&gt; 6</span>
+    <span class="o">}</span>
+
+    <span class="n">F1</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;</span> <span class="n">intToString</span> <span class="o">=</span> <span class="k">new</span> <span class="n">F1</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;()</span> <span class="o">{</span>
+        <span class="nd">@Override</span>
+        <span class="kd">public</span> <span class="n">String</span> <span class="nf">apply</span><span class="o">(</span><span class="n">Integer</span> <span class="n">input</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="n">String</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="n">input</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">};</span>
+
+    <span class="n">F1</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">,</span> <span class="n">Boolean</span><span class="o">&gt;</span> <span class="n">isOdd</span> <span class="o">=</span> <span class="k">new</span> <span class="n">F1</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">,</span> <span class="n">Boolean</span><span class="o">&gt;()</span> <span class="o">{</span>
+        <span class="nd">@Override</span>
+        <span class="kd">public</span> <span class="n">Boolean</span> <span class="nf">apply</span><span class="o">(</span><span class="n">Integer</span> <span class="n">input</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="n">input</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">1</span><span class="o">;</span>
+        <span class="o">}</span>
+    <span class="o">};</span>
+
+    <span class="n">F1</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">,</span> <span class="n">Nothing</span><span class="o">&gt;</span> <span class="n">print</span> <span class="o">=</span> <span class="k">new</span> <span class="n">F1</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">,</span> <span class="n">Nothing</span><span class="o">&gt;()</span> <span class="o">{</span>
+        <span class="nd">@Override</span>
+        <span class="kd">public</span> <span class="n">Nothing</span> <span class="nf">apply</span><span class="o">(</span><span class="n">Integer</span> <span class="n">input</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">input</span><span class="o">);</span>
+            <span class="k">return</span> <span class="n">nothing</span><span class="o">;</span>
+        <span class="o">}</span>
+    <span class="o">};</span>
+
+    <span class="n">F2</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">,</span> <span class="n">Integer</span><span class="o">,</span> <span class="n">Integer</span><span class="o">&gt;</span> <span class="n">sum</span> <span class="o">=</span> <span class="k">new</span> <span class="n">F2</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">,</span> <span class="n">Integer</span><span class="o">,</span> <span class="n">Integer</span><span class="o">&gt;()</span> <span class="o">{</span>
+        <span class="nd">@Override</span>
+        <span class="kd">public</span> <span class="n">Integer</span> <span class="nf">apply</span><span class="o">(</span><span class="n">Integer</span> <span class="n">i1</span><span class="o">,</span> <span class="n">Integer</span> <span class="n">i2</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="n">i1</span> <span class="o">+</span> <span class="n">i2</span><span class="o">;</span>
+        <span class="o">}</span>
+    <span class="o">};</span>
+<span class="o">}</span>
+
+</pre></div>
+
+<h3>
+<a name="try" class="anchor" href="#try"><span class="octicon octicon-link"></span></a>Try</h3>
+
+<p>This structure allows you to return success or failure information.</p>
+
+<div class="highlight highlight-java"><pre><span class="kn">import</span> <span class="nn">static</span> <span class="n">fr</span><span class="o">.</span><span class="na">bluepyth</span><span class="o">.</span><span class="na">java</span><span class="o">.</span><span class="na">funchelper</span><span class="o">.</span><span class="na">immutable</span><span class="o">.</span><span class="na">IList</span><span class="o">.</span><span class="na">list</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">static</span> <span class="n">fr</span><span class="o">.</span><span class="na">bluepyth</span><span class="o">.</span><span class="na">java</span><span class="o">.</span><span class="na">funchelper</span><span class="o">.</span><span class="na">trylike</span><span class="o">.</span><span class="na">Try</span><span class="o">.</span><span class="na">emptySuccess</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">static</span> <span class="n">fr</span><span class="o">.</span><span class="na">bluepyth</span><span class="o">.</span><span class="na">java</span><span class="o">.</span><span class="na">funchelper</span><span class="o">.</span><span class="na">trylike</span><span class="o">.</span><span class="na">Try</span><span class="o">.</span><span class="na">failure</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">static</span> <span class="n">fr</span><span class="o">.</span><span class="na">bluepyth</span><span class="o">.</span><span class="na">java</span><span class="o">.</span><span class="na">funchelper</span><span class="o">.</span><span class="na">trylike</span><span class="o">.</span><span class="na">Try</span><span class="o">.</span><span class="na">success</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">static</span> <span class="n">fr</span><span class="o">.</span><span class="na">bluepyth</span><span class="o">.</span><span class="na">java</span><span class="o">.</span><span class="na">funchelper</span><span class="o">.</span><span class="na">trylike</span><span class="o">.</span><span class="na">Try</span><span class="o">.</span><span class="na">trySeq</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">fr.bluepyth.java.funchelper.immutable.IList</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">fr.bluepyth.java.funchelper.trylike.FTry</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">fr.bluepyth.java.funchelper.trylike.Try</span><span class="o">;</span>
+
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">TryStructure</span> <span class="o">{</span>
+
+    <span class="kd">public</span> <span class="nf">TryStructure</span><span class="o">()</span> <span class="o">{</span>
+
+        <span class="n">emptySuccess</span><span class="o">();</span> <span class="c1">// =&gt; Success&lt;Nothing&gt;(nothing)</span>
+        <span class="n">failure</span><span class="o">(</span><span class="k">new</span> <span class="n">Exception</span><span class="o">());</span> <span class="c1">// =&gt; Failure&lt;Exception, Object&gt;</span>
+        <span class="n">success</span><span class="o">(</span><span class="n">Integer</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="mi">2</span><span class="o">));</span> <span class="c1">// =&gt; Success&lt;Integer&gt;(2)</span>
+
+        <span class="n">strToDouble</span><span class="o">.</span><span class="na">apply</span><span class="o">(</span><span class="s">"2.34"</span><span class="o">);</span> <span class="c1">// =&gt; Success&lt;Double&gt;(2.34)</span>
+        <span class="n">strToDouble</span><span class="o">.</span><span class="na">apply</span><span class="o">(</span><span class="s">"xxxx"</span><span class="o">);</span> <span class="c1">// =&gt; Failure(NumberFormatException, Double&gt;</span>
+
+        <span class="n">strToDouble</span><span class="o">.</span><span class="na">apply</span><span class="o">(</span><span class="s">"2.34"</span><span class="o">).</span><span class="na">map</span><span class="o">(</span><span class="n">doubleToStr</span><span class="o">);</span> <span class="c1">// =&gt; Success&lt;String&gt;("2.34")</span>
+
+        <span class="n">IList</span><span class="o">&lt;</span><span class="n">Try</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;&gt;</span> <span class="n">l</span> <span class="o">=</span> 
+            <span class="n">list</span><span class="o">((</span><span class="n">Try</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;)</span> <span class="n">success</span><span class="o">(</span><span class="mi">1</span><span class="o">),</span> <span class="o">(</span><span class="n">Try</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;)</span> <span class="n">success</span><span class="o">(</span><span class="mi">2</span><span class="o">),</span> <span class="o">(</span><span class="n">Try</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;)</span> <span class="n">success</span><span class="o">(</span><span class="mi">3</span><span class="o">));</span>
+
+        <span class="n">Try</span><span class="o">&lt;</span><span class="n">IList</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;&gt;</span> <span class="n">tl</span> <span class="o">=</span> <span class="n">trySeq</span><span class="o">(</span><span class="n">l</span><span class="o">);</span> <span class="c1">// =&gt; Success(List(1,2,3)) </span>
+    <span class="o">}</span>
+
+    <span class="n">FTry</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Double</span><span class="o">&gt;</span> <span class="n">strToDouble</span> <span class="o">=</span> <span class="k">new</span> <span class="n">FTry</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Double</span><span class="o">&gt;()</span> <span class="o">{</span>
+        <span class="nd">@Override</span>
+        <span class="kd">public</span> <span class="n">Try</span><span class="o">&lt;</span><span class="n">Double</span><span class="o">&gt;</span> <span class="nf">apply</span><span class="o">(</span><span class="n">String</span> <span class="n">input</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">try</span> <span class="o">{</span>
+                <span class="k">return</span> <span class="nf">success</span><span class="o">(</span><span class="n">Double</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="s">"xxx"</span><span class="o">));</span>
+            <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">NumberFormatException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+                <span class="k">return</span> <span class="nf">failure</span><span class="o">(</span><span class="n">e</span><span class="o">);</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+    <span class="o">};</span>
+
+    <span class="n">FTry</span><span class="o">&lt;</span><span class="n">Double</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;</span> <span class="n">doubleToStr</span> <span class="o">=</span> <span class="k">new</span> <span class="n">FTry</span><span class="o">&lt;</span><span class="n">Double</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;()</span> <span class="o">{</span>
+        <span class="nd">@Override</span>
+        <span class="kd">public</span> <span class="n">Try</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="nf">apply</span><span class="o">(</span><span class="n">Double</span> <span class="n">input</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="nf">success</span><span class="o">(</span><span class="n">input</span><span class="o">.</span><span class="na">toString</span><span class="o">());</span>
+        <span class="o">}</span>
+    <span class="o">};</span>
+
+<span class="o">}</span>
+</pre></div>
+
+<h2>
+<a name="roadmap" class="anchor" href="#roadmap"><span class="octicon octicon-link"></span></a>Roadmap</h2>
+
+<p>If someone else than me is to use this library, I'm open to feedback! Will add whatever I'd like to use in Java.</p>
+
+<h2>
+<a name="license" class="anchor" href="#license"><span class="octicon octicon-link"></span></a>License</h2>
+
+<p>Copyright Romain Sertelon 2013</p>
+
+<p>This software is licenced under the Apache Software License v2.0, you can find it in the LICENCE file.</p>
+      </section>
+
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+    
+  </body>
+</html>
