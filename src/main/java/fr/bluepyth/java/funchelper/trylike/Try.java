@@ -61,6 +61,13 @@ public abstract class Try<T> {
 		return new Failure<Exception, E>(isFailure() ? getException() : new Exception());
 	}
 	
+	public <U> Try<U> transform(FTry<T, U> s, FTry<Exception, U> f) {
+		if(isSuccess())
+			return s.apply(getPayload());
+		else
+			return f.apply(getException());
+	}
+
 	public static class Success<T> extends Try<T> {
 		private T payload;
 
