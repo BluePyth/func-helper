@@ -51,7 +51,7 @@ public abstract class Try<T> {
 	}
 	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public static <U,V extends Exception> Try<Opt<U>> toTry(Opt<Try<U>> opt, Class<V> exceptionClass) {
+	public static <U,V extends Exception> Try<Opt<U>> optToTry(Opt<Try<U>> opt, Class<V> exceptionClass) {
 		if(opt.isDefined())
 			return (Try) success(opt);
 		else
