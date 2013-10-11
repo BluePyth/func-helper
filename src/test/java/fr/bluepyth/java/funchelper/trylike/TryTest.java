@@ -1,15 +1,19 @@
 package fr.bluepyth.java.funchelper.trylike;
 
 import static fr.bluepyth.java.funchelper.immutable.IList.list;
+import static fr.bluepyth.java.funchelper.option.Opt.toOpt;
+import static fr.bluepyth.java.funchelper.trylike.Try.optToTry;
 import static fr.bluepyth.java.funchelper.trylike.Try.success;
 import static fr.bluepyth.java.funchelper.trylike.Try.trySeq;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.BlockJUnit4ClassRunner;
 
 import fr.bluepyth.java.funchelper.immutable.IList;
+import fr.bluepyth.java.funchelper.option.Opt;
 
 @RunWith(BlockJUnit4ClassRunner.class)
 public class TryTest {
@@ -23,7 +27,20 @@ public class TryTest {
 	public void trySeq_nominal() {
 		Try<IList<Integer>> result = trySeq(trylist);
 		
-		Assert.assertTrue(result.isSuccess());
-		Assert.assertEquals(list, result.getPayload());
+		assertTrue(result.isSuccess());
+		assertEquals(list, result.getPayload());
+	}
+	
+	@Test
+	public void optToTry_nominal() {
+		Opt<Try<Integer>> a = toOpt((Try<Integer>) success(1));
+		Try<Opt<Integer>> result = optToTry(a, IllegalArgumentException.class);
+		
+		System.out.println(a);
+		System.out.println(result);
+		
+		assertTrue(result.isSuccess());
+		assertTrue(result.getPayload().isDefined());
+		assertEquals(Integer.valueOf(1), result.getPayload().get());
 	}
 }

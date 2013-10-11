@@ -1,6 +1,7 @@
 package fr.bluepyth.java.funchelper.trylike;
 
 import static fr.bluepyth.java.funchelper.Nothing.nothing;
+import static fr.bluepyth.java.funchelper.option.Opt.toOpt;
 import fr.bluepyth.java.funchelper.Nothing;
 import fr.bluepyth.java.funchelper.function.F1;
 import fr.bluepyth.java.funchelper.function.F2;
@@ -50,10 +51,12 @@ public abstract class Try<T> {
 		});
 	}
 	
-	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public static <U,V extends Exception> Try<Opt<U>> optToTry(Opt<Try<U>> opt, Class<V> exceptionClass) {
 		if(opt.isDefined())
-			return (Try) success(opt);
+			if(opt.get().isSuccess())
+				return success(toOpt(opt.get().getPayload()));
+			else 
+				return opt.get().fail();
 		else
 			try {
 				return failure(exceptionClass.newInstance());
@@ -108,7 +111,7 @@ public abstract class Try<T> {
 		
 		@Override
 		public String toString() {
-			return new StringBuilder("[Success payload=").append(payload).append("]").toString();
+			return new StringBuilder("Success(").append(payload).append(")").toString();
 		}
 		
 	}
@@ -143,7 +146,7 @@ public abstract class Try<T> {
 
 		@Override
 		public String toString() {
-			return new StringBuilder("[Failure exception=").append(exception).append("]").toString();
+			return new StringBuilder("Failure(").append(exception).append(")").toString();
 		}
 	}
 	

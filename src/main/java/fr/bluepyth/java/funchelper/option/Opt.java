@@ -69,6 +69,11 @@ public abstract class Opt<T> {
 			return value;
 		}
 		
+		@Override
+		public String toString() {
+			return new StringBuilder().append("Some(").append(get()).append(")").toString();
+		}
+		
 	}
 	
 	public static class None<T> extends Opt<T> {
@@ -81,6 +86,11 @@ public abstract class Opt<T> {
 		@Override
 		public T get() {
 			throw new NoSuchElementException();
+		}
+		
+		@Override
+		public String toString() {
+			return "None";
 		}
 		
 	}
