@@ -5,6 +5,7 @@ import fr.bluepyth.java.funchelper.Nothing;
 import fr.bluepyth.java.funchelper.function.F1;
 import fr.bluepyth.java.funchelper.function.F2;
 import fr.bluepyth.java.funchelper.immutable.IList;
+import fr.bluepyth.java.funchelper.option.Opt;
 
 public abstract class Try<T> {
 	
@@ -49,6 +50,20 @@ public abstract class Try<T> {
 		});
 	}
 	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	public static <U,V extends Exception> Try<Opt<U>> toTry(Opt<Try<U>> opt, Class<V> exceptionClass) {
+		if(opt.isDefined())
+			return (Try) success(opt);
+		else
+			try {
+				return failure(exceptionClass.newInstance());
+			} catch (InstantiationException e) {
+				return failure(e);
+			} catch (IllegalAccessException e) {
+				return failure(e);
+			}
+	}
+
 	public <A> Try<A> map(F1<T, Try<A>> lambda) {
 		if(isSuccess()) {
 			return lambda.apply(getPayload());
