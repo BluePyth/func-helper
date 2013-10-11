@@ -25,6 +25,13 @@ public abstract class Opt<T> {
 			return none();
 	}
 	
+	public <U> Opt<U> asOpt(Class<U> clazz) {
+		if(isDefined() && clazz.isInstance(get()))
+			return toOpt(clazz.cast(get()));
+		else
+			return none();
+	}
+
 	@SuppressWarnings("unchecked")
 	public <A extends T> Opt<T> or(Opt<A> other) {
 		if(isDefined())

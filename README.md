@@ -98,6 +98,7 @@ public class Option {
 		map.isDefined(); // => true
 		intOpt.getOrElse(3); // => 3
 		intOpt.get(); // => NoSuchElementException
+		Opt<String> strOpt = toOpt((Object) "3").asOpt(String.class);
 		
 		Opt<Integer> noneOpt = none();
 	}
