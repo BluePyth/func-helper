@@ -25,6 +25,10 @@ public abstract class Opt<T> {
 			return none();
 	}
 	
+	public Opt<T> filter(F1<T, Boolean> p) {
+		return toOpt(isDefined() && p.apply(get()) ? get() : null);
+	}
+	
 	public <U> Opt<U> asOpt(Class<U> clazz) {
 		if(isDefined() && clazz.isInstance(get()))
 			return toOpt(clazz.cast(get()));

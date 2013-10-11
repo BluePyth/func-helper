@@ -86,6 +86,13 @@ public class Option {
 		}
 	};
 	
+	F1<String, Boolean> isEmpty = new F1<String, Boolean>() {
+		@Override
+		public Boolean apply(String input) {
+			return input.isEmpty();
+		}
+	};
+	
 	public Option() {
 				
 		Opt<Integer> intOpt = toOpt(null); // => None
@@ -99,6 +106,7 @@ public class Option {
 		intOpt.getOrElse(3); // => 3
 		intOpt.get(); // => NoSuchElementException
 		Opt<String> strOpt = toOpt((Object) "3").asOpt(String.class);
+		toOpt("").filter(isEmpty); // => None		
 		
 		Opt<Integer> noneOpt = none();
 	}
