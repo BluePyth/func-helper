@@ -2,6 +2,7 @@ package fr.bluepyth.funchelper.immutable;
 
 import static fr.bluepyth.funchelper.Nothing.nothing;
 
+import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import fr.bluepyth.funchelper.Nothing;
@@ -38,6 +39,16 @@ public abstract class IList<T> {
 			list = list.prepend(elements[i]);
 		}
 		return list;
+	}
+	
+	public static <U> IList<U> list(List<U> l) {
+		IList<U> list = nil();
+		if(l != null) {
+			for(U e : l) {
+				list = list.prepend(e);
+			}
+		}
+		return list.reverse();
 	}
 	
 	/**
