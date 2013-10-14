@@ -48,26 +48,22 @@
 <h2>
 <a name="get-it" class="anchor" href="#get-it"><span class="octicon octicon-link"></span></a>Get it</h2>
 
-<p>Func-helper is available in my maven repository as snapshots for now (API shouldn't break but you never know. GroupId expected to change for the first stable release).</p>
+<p>Func-helper is available in my maven repository.</p>
 
 <div class="highlight highlight-xml"><pre><span class="c">&lt;!-- Repository --&gt;</span>
 <span class="nt">&lt;repositories&gt;</span>
     <span class="nt">&lt;repository&gt;</span>
         <span class="nt">&lt;id&gt;</span>bluepyth<span class="nt">&lt;/id&gt;</span>
         <span class="nt">&lt;name&gt;</span>BluePyth Repository<span class="nt">&lt;/name&gt;</span>
-        <span class="nt">&lt;url&gt;</span>http://repository.bluepyth.fr/content/repositories/snapshots<span class="nt">&lt;/url&gt;</span>
-    <span class="nt">&lt;snapshots&gt;</span>
-        <span class="nt">&lt;enabled&gt;</span>true<span class="nt">&lt;/enabled&gt;</span>
-        <span class="nt">&lt;updatePolicy&gt;</span>always<span class="nt">&lt;/updatePolicy&gt;</span>
-    <span class="nt">&lt;/snapshots&gt;</span>
+        <span class="nt">&lt;url&gt;</span>http://repository.bluepyth.fr/content/groups/public<span class="nt">&lt;/url&gt;</span>
     <span class="nt">&lt;/repository&gt;</span>
 <span class="nt">&lt;/repositories&gt;</span>
 
 <span class="c">&lt;!-- Dependency --&gt;</span>
 <span class="nt">&lt;dependency&gt;</span>
-    <span class="nt">&lt;groupId&gt;</span>fr.bluepyth.java<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>fr.bluepyth<span class="nt">&lt;/groupId&gt;</span>
     <span class="nt">&lt;artifactId&gt;</span>func-helper<span class="nt">&lt;/artifactId&gt;</span>
-    <span class="nt">&lt;version&gt;</span>1.0.0-SNAPSHOT<span class="nt">&lt;/version&gt;</span>
+    <span class="nt">&lt;version&gt;</span>1.0.0<span class="nt">&lt;/version&gt;</span>
 <span class="nt">&lt;/dependency&gt;</span>
 </pre></div>
 
@@ -79,8 +75,8 @@
 
 <p>As building blocks of functional programming, they are present in this library. They are easy to use, but until Java 8, the syntax will look very heavy.</p>
 
-<div class="highlight highlight-java"><pre><span class="kn">import</span> <span class="nn">static</span> <span class="n">fr</span><span class="o">.</span><span class="na">bluepyth</span><span class="o">.</span><span class="na">java</span><span class="o">.</span><span class="na">funchelper</span><span class="o">.</span><span class="na">function</span><span class="o">.</span><span class="na">FunComposer</span><span class="o">.</span><span class="na">compose</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">fr.bluepyth.java.funchelper.function.F1</span><span class="o">;</span>
+<div class="highlight highlight-java"><pre><span class="kn">import</span> <span class="nn">static</span> <span class="n">fr</span><span class="o">.</span><span class="na">bluepyth</span><span class="o">.</span><span class="na">funchelper</span><span class="o">.</span><span class="na">function</span><span class="o">.</span><span class="na">FunComposer</span><span class="o">.</span><span class="na">compose</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">fr.bluepyth.funchelper.function.F1</span><span class="o">;</span>
 
 
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">Functions</span> <span class="o">{</span>
@@ -113,10 +109,10 @@
 
 <p>Option[T] is a very handy structure in Scala. Guava has its own Optional, but I didn't want to depend on any lib. Thus, Opt</p>
 
-<div class="highlight highlight-java"><pre><span class="kn">import</span> <span class="nn">static</span> <span class="n">fr</span><span class="o">.</span><span class="na">bluepyth</span><span class="o">.</span><span class="na">java</span><span class="o">.</span><span class="na">funchelper</span><span class="o">.</span><span class="na">option</span><span class="o">.</span><span class="na">Opt</span><span class="o">.</span><span class="na">none</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">static</span> <span class="n">fr</span><span class="o">.</span><span class="na">bluepyth</span><span class="o">.</span><span class="na">java</span><span class="o">.</span><span class="na">funchelper</span><span class="o">.</span><span class="na">option</span><span class="o">.</span><span class="na">Opt</span><span class="o">.</span><span class="na">toOpt</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">fr.bluepyth.java.funchelper.function.F1</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">fr.bluepyth.java.funchelper.option.Opt</span><span class="o">;</span>
+<div class="highlight highlight-java"><pre><span class="kn">import</span> <span class="nn">static</span> <span class="n">fr</span><span class="o">.</span><span class="na">bluepyth</span><span class="o">.</span><span class="na">funchelper</span><span class="o">.</span><span class="na">option</span><span class="o">.</span><span class="na">Opt</span><span class="o">.</span><span class="na">none</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">static</span> <span class="n">fr</span><span class="o">.</span><span class="na">bluepyth</span><span class="o">.</span><span class="na">funchelper</span><span class="o">.</span><span class="na">option</span><span class="o">.</span><span class="na">Opt</span><span class="o">.</span><span class="na">toOpt</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">fr.bluepyth.funchelper.function.F1</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">fr.bluepyth.funchelper.option.Opt</span><span class="o">;</span>
 
 
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">Option</span> <span class="o">{</span>
@@ -125,6 +121,13 @@
         <span class="nd">@Override</span>
         <span class="kd">public</span> <span class="n">String</span> <span class="nf">apply</span><span class="o">(</span><span class="n">Integer</span> <span class="n">input</span><span class="o">)</span> <span class="o">{</span>
             <span class="k">return</span> <span class="n">String</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="n">input</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">};</span>
+
+    <span class="n">F1</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Boolean</span><span class="o">&gt;</span> <span class="n">isEmpty</span> <span class="o">=</span> <span class="k">new</span> <span class="n">F1</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Boolean</span><span class="o">&gt;()</span> <span class="o">{</span>
+        <span class="nd">@Override</span>
+        <span class="kd">public</span> <span class="n">Boolean</span> <span class="nf">apply</span><span class="o">(</span><span class="n">String</span> <span class="n">input</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="n">input</span><span class="o">.</span><span class="na">isEmpty</span><span class="o">();</span>
         <span class="o">}</span>
     <span class="o">};</span>
 
@@ -140,6 +143,8 @@
         <span class="n">map</span><span class="o">.</span><span class="na">isDefined</span><span class="o">();</span> <span class="c1">// =&gt; true</span>
         <span class="n">intOpt</span><span class="o">.</span><span class="na">getOrElse</span><span class="o">(</span><span class="mi">3</span><span class="o">);</span> <span class="c1">// =&gt; 3</span>
         <span class="n">intOpt</span><span class="o">.</span><span class="na">get</span><span class="o">();</span> <span class="c1">// =&gt; NoSuchElementException</span>
+        <span class="n">Opt</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">strOpt</span> <span class="o">=</span> <span class="n">toOpt</span><span class="o">((</span><span class="n">Object</span><span class="o">)</span> <span class="s">"3"</span><span class="o">).</span><span class="na">asOpt</span><span class="o">(</span><span class="n">String</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+        <span class="n">toOpt</span><span class="o">(</span><span class="s">""</span><span class="o">).</span><span class="na">filter</span><span class="o">(</span><span class="n">isEmpty</span><span class="o">);</span> <span class="c1">// =&gt; None       </span>
 
         <span class="n">Opt</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">noneOpt</span> <span class="o">=</span> <span class="n">none</span><span class="o">();</span>
     <span class="o">}</span>
@@ -151,15 +156,15 @@
 
 <p>This construct is an immutable linked list. It is based on the same implementation as Scala's List.</p>
 
-<div class="highlight highlight-java"><pre><span class="kn">import</span> <span class="nn">static</span> <span class="n">fr</span><span class="o">.</span><span class="na">bluepyth</span><span class="o">.</span><span class="na">java</span><span class="o">.</span><span class="na">funchelper</span><span class="o">.</span><span class="na">Nothing</span><span class="o">.</span><span class="na">nothing</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">static</span> <span class="n">fr</span><span class="o">.</span><span class="na">bluepyth</span><span class="o">.</span><span class="na">java</span><span class="o">.</span><span class="na">funchelper</span><span class="o">.</span><span class="na">immutable</span><span class="o">.</span><span class="na">IList</span><span class="o">.</span><span class="na">list</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">static</span> <span class="n">fr</span><span class="o">.</span><span class="na">bluepyth</span><span class="o">.</span><span class="na">java</span><span class="o">.</span><span class="na">funchelper</span><span class="o">.</span><span class="na">immutable</span><span class="o">.</span><span class="na">IList</span><span class="o">.</span><span class="na">nil</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">static</span> <span class="n">fr</span><span class="o">.</span><span class="na">bluepyth</span><span class="o">.</span><span class="na">java</span><span class="o">.</span><span class="na">funchelper</span><span class="o">.</span><span class="na">immutable</span><span class="o">.</span><span class="na">IList</span><span class="o">.</span><span class="na">range</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">static</span> <span class="n">fr</span><span class="o">.</span><span class="na">bluepyth</span><span class="o">.</span><span class="na">java</span><span class="o">.</span><span class="na">funchelper</span><span class="o">.</span><span class="na">immutable</span><span class="o">.</span><span class="na">IList</span><span class="o">.</span><span class="na">rangeIncl</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">fr.bluepyth.java.funchelper.Nothing</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">fr.bluepyth.java.funchelper.function.F1</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">fr.bluepyth.java.funchelper.function.F2</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">fr.bluepyth.java.funchelper.immutable.IList</span><span class="o">;</span>
+<div class="highlight highlight-java"><pre><span class="kn">import</span> <span class="nn">static</span> <span class="n">fr</span><span class="o">.</span><span class="na">bluepyth</span><span class="o">.</span><span class="na">funchelper</span><span class="o">.</span><span class="na">Nothing</span><span class="o">.</span><span class="na">nothing</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">static</span> <span class="n">fr</span><span class="o">.</span><span class="na">bluepyth</span><span class="o">.</span><span class="na">funchelper</span><span class="o">.</span><span class="na">immutable</span><span class="o">.</span><span class="na">IList</span><span class="o">.</span><span class="na">list</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">static</span> <span class="n">fr</span><span class="o">.</span><span class="na">bluepyth</span><span class="o">.</span><span class="na">funchelper</span><span class="o">.</span><span class="na">immutable</span><span class="o">.</span><span class="na">IList</span><span class="o">.</span><span class="na">nil</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">static</span> <span class="n">fr</span><span class="o">.</span><span class="na">bluepyth</span><span class="o">.</span><span class="na">funchelper</span><span class="o">.</span><span class="na">immutable</span><span class="o">.</span><span class="na">IList</span><span class="o">.</span><span class="na">range</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">static</span> <span class="n">fr</span><span class="o">.</span><span class="na">bluepyth</span><span class="o">.</span><span class="na">funchelper</span><span class="o">.</span><span class="na">immutable</span><span class="o">.</span><span class="na">IList</span><span class="o">.</span><span class="na">rangeIncl</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">fr.bluepyth.funchelper.Nothing</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">fr.bluepyth.funchelper.function.F1</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">fr.bluepyth.funchelper.function.F2</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">fr.bluepyth.funchelper.immutable.IList</span><span class="o">;</span>
 
 
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">ImmutableList</span> <span class="o">{</span>
@@ -223,14 +228,14 @@
 
 <p>This structure allows you to return success or failure information.</p>
 
-<div class="highlight highlight-java"><pre><span class="kn">import</span> <span class="nn">static</span> <span class="n">fr</span><span class="o">.</span><span class="na">bluepyth</span><span class="o">.</span><span class="na">java</span><span class="o">.</span><span class="na">funchelper</span><span class="o">.</span><span class="na">immutable</span><span class="o">.</span><span class="na">IList</span><span class="o">.</span><span class="na">list</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">static</span> <span class="n">fr</span><span class="o">.</span><span class="na">bluepyth</span><span class="o">.</span><span class="na">java</span><span class="o">.</span><span class="na">funchelper</span><span class="o">.</span><span class="na">trylike</span><span class="o">.</span><span class="na">Try</span><span class="o">.</span><span class="na">emptySuccess</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">static</span> <span class="n">fr</span><span class="o">.</span><span class="na">bluepyth</span><span class="o">.</span><span class="na">java</span><span class="o">.</span><span class="na">funchelper</span><span class="o">.</span><span class="na">trylike</span><span class="o">.</span><span class="na">Try</span><span class="o">.</span><span class="na">failure</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">static</span> <span class="n">fr</span><span class="o">.</span><span class="na">bluepyth</span><span class="o">.</span><span class="na">java</span><span class="o">.</span><span class="na">funchelper</span><span class="o">.</span><span class="na">trylike</span><span class="o">.</span><span class="na">Try</span><span class="o">.</span><span class="na">success</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">static</span> <span class="n">fr</span><span class="o">.</span><span class="na">bluepyth</span><span class="o">.</span><span class="na">java</span><span class="o">.</span><span class="na">funchelper</span><span class="o">.</span><span class="na">trylike</span><span class="o">.</span><span class="na">Try</span><span class="o">.</span><span class="na">trySeq</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">fr.bluepyth.java.funchelper.immutable.IList</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">fr.bluepyth.java.funchelper.trylike.FTry</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">fr.bluepyth.java.funchelper.trylike.Try</span><span class="o">;</span>
+<div class="highlight highlight-java"><pre><span class="kn">import</span> <span class="nn">static</span> <span class="n">fr</span><span class="o">.</span><span class="na">bluepyth</span><span class="o">.</span><span class="na">funchelper</span><span class="o">.</span><span class="na">immutable</span><span class="o">.</span><span class="na">IList</span><span class="o">.</span><span class="na">list</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">static</span> <span class="n">fr</span><span class="o">.</span><span class="na">bluepyth</span><span class="o">.</span><span class="na">funchelper</span><span class="o">.</span><span class="na">trylike</span><span class="o">.</span><span class="na">Try</span><span class="o">.</span><span class="na">emptySuccess</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">static</span> <span class="n">fr</span><span class="o">.</span><span class="na">bluepyth</span><span class="o">.</span><span class="na">funchelper</span><span class="o">.</span><span class="na">trylike</span><span class="o">.</span><span class="na">Try</span><span class="o">.</span><span class="na">failure</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">static</span> <span class="n">fr</span><span class="o">.</span><span class="na">bluepyth</span><span class="o">.</span><span class="na">funchelper</span><span class="o">.</span><span class="na">trylike</span><span class="o">.</span><span class="na">Try</span><span class="o">.</span><span class="na">success</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">static</span> <span class="n">fr</span><span class="o">.</span><span class="na">bluepyth</span><span class="o">.</span><span class="na">funchelper</span><span class="o">.</span><span class="na">trylike</span><span class="o">.</span><span class="na">Try</span><span class="o">.</span><span class="na">trySeq</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">fr.bluepyth.funchelper.immutable.IList</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">fr.bluepyth.funchelper.trylike.FTry</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">fr.bluepyth.funchelper.trylike.Try</span><span class="o">;</span>
 
 
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">TryStructure</span> <span class="o">{</span>
