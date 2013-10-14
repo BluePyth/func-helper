@@ -83,4 +83,11 @@ public class IListTest {
 		
 		assertEquals(droppedList, result);
 	}
+	
+	@Test
+	public void size_nominal() {
+		Integer size = list.size();
+		
+		assertEquals(Integer.valueOf(3), size);
+	}
 }

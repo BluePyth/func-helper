@@ -211,6 +211,14 @@ public abstract class IList<T> {
 		return mkString("List(", ",", ")");
 	}
 	
+	public int size() {
+		return foldLeft(0, new F2<Integer, T, Integer>() {
+			public Integer apply(Integer i1, T i2) {
+				return i1 + 1;
+			}
+		});
+	}
+	
 	/**
 	 * This class represents a link of the list
 	 * @param <T>
