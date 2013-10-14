@@ -65,30 +65,67 @@ public abstract class IList<T> {
 		return list;
 	}
 	
+	/**
+	 * @return the first element of this list
+	 */
 	public abstract T head();
+	
+	/**
+	 * @return the tail of this list
+	 */
 	public abstract IList<T> tail();
+	
+	/**
+	 * @return whether this list is empty (nil) or not
+	 */
 	public abstract boolean isEmpty();
+	
+	/**
+	 * @param i the index of the wanted element
+	 * @return the i-th element of the list
+	 */
 	public abstract T get(int i);
 	
+	/**
+	 * @return this list, reversed
+	 */
 	public IList<T> reverse() {
 		return reverseAcc(IList.<T>nil());
 	}
 	protected abstract IList<T> reverseAcc(IList<T> acc);
 	
+	/**
+	 * @param predicate the filtering function
+	 * @return this list, only with filtered elements
+	 */
 	public IList<T> filter(F1<T, Boolean> predicate) {
 		return filterAcc(predicate, IList.<T>nil());
 	}
 	protected abstract IList<T> filterAcc(F1<T, Boolean> p, IList<T> acc);
 	
+	/**
+	 * @param f the function that will transform each element
+	 * @return this list, with each element transformed by f
+	 */
 	public <U> IList<U> map(F1<T,U> f) {
 		return mapAcc(f, IList.<U>nil());
 	}
 	protected abstract <U> IList<U> mapAcc(F1<T,U> f, IList<U> acc);
 
+	/**
+	 * @param sep the separator
+	 * @return a string with all elements separated by sep
+	 */
 	public String mkString(String sep) {
 		return mkString("", sep, "");
 	}
 	
+	/**
+	 * @param start the beginning of the resulting string
+	 * @param sep the separator
+	 * @param end the end of the resulting string
+	 * @return a string with all elements like so: start+el+sep+...+sep+el+end
+	 */
 	public String mkString(String start, final String sep, String end) {
 		final AtomicBoolean first = new AtomicBoolean(true); 
 		final StringBuilder sb = new StringBuilder();
@@ -113,13 +150,30 @@ public abstract class IList<T> {
 		
 	}
 	
+	/**
+	 * @param f the function to be applied on each element of the list
+	 * @return nothing (function has only side effects)
+	 */
 	public abstract Nothing foreach(F1<T, Nothing> f);
 	
+	/**
+	 * This function allows one to traverse the list while computing a value.
+	 * For example it can be used to compute the sum of the elements of a list:
+	 * 	 list(1,2).foldLeft(0, (a,b) => a+b)
+	 * @param init the initial value
+	 * @param f the function that will be applied
+	 * @return a value of type U
+	 */
 	public <U> U foldLeft(U init, F2<U, T, U> f) {
 		return foldLeftAcc(f, init);
 	}
 	protected abstract <U> U foldLeftAcc(F2<U,T,U> f, U acc);
 	
+	/**
+	 * Adds an element to the beginning of this list
+	 * @param element the element to be prepended
+	 * @return a new list with element prepended
+	 */
 	public IList<T> prepend(T element) {
 		return new Cons<T>(element, this);
 	}
@@ -129,6 +183,10 @@ public abstract class IList<T> {
 		return mkString("List(", ",", ")");
 	}
 	
+	/**
+	 * This class represents a link of the list
+	 * @param <T>
+	 */
 	public static class Cons<T> extends IList<T> {
 
 		private final T head;
@@ -203,6 +261,10 @@ public abstract class IList<T> {
 		
 	}
 	
+	/**
+	 * This class represents the last element of an IList (the empty link)
+	 * @param <T>
+	 */
 	public static class Nil<T> extends IList<T> {
 
 		@Override
