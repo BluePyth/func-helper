@@ -37,7 +37,7 @@ public abstract class TryComposer<A, B> implements FTry<A, B> {
 
 		@Override
 		public Try<B> apply(A arg) {
-			return action.apply(arg).map(new FTry<I, B>() {
+			return action.apply(arg).flatMap(new FTry<I, B>() {
 				@Override
 				public Try<B> apply(I input) {
 					return next.apply(input);

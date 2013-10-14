@@ -32,10 +32,10 @@ public abstract class Try<T> {
 		return list.foldLeft(success(IList.<T>nil()), new F2<Try<IList<T>>, Try<T>, Try<IList<T>>>() {
 			public Try<IList<T>> apply(Try<IList<T>> acc, final Try<T> listElem) {
 				
-				return acc.map(new FTry<IList<T>, IList<T>>() {
+				return acc.flatMap(new FTry<IList<T>, IList<T>>() {
 					public Try<IList<T>> apply(final IList<T> list) {
 						
-						return listElem.map(new FTry<T, IList<T>>() {
+						return listElem.flatMap(new FTry<T, IList<T>>() {
 							public Try<IList<T>> apply(T element) {
 								
 								return success(list.prepend(element));
@@ -44,7 +44,7 @@ public abstract class Try<T> {
 					}
 				});
 			}
-		}).map(new F1<IList<T>, Try<IList<T>>>() {
+		}).flatMap(new F1<IList<T>, Try<IList<T>>>() {
 			public Try<IList<T>> apply(IList<T> input) {
 				return success(input.reverse());
 			}
@@ -61,12 +61,26 @@ public abstract class Try<T> {
 			return success(Opt.<U>none());
 	}
 
-	public <A> Try<A> map(F1<T, Try<A>> lambda) {
+	public <A> Try<A> flatMap(F1<T, Try<A>> lambda) {
 		if(isSuccess()) {
 			return lambda.apply(getPayload());
 		} else {
-			return new Failure<Exception, A>(this.getException());
+			return this.fail();
 		}
+	}
+	
+	public <A> Try<A> map(F1<T,A> lambda) {
+		if(isSuccess())
+			return success(lambda.apply(getPayload()));
+		else
+			return this.fail();
+	}
+
+	public static <A> Try<A> flatten(Try<Try<A>> in) {
+		if(in.isSuccess())
+			return in.getPayload();
+		else
+			return in.fail();
 	}
 	
 	public <E> Try<E> fail() {
