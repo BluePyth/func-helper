@@ -51,20 +51,14 @@ public abstract class Try<T> {
 		});
 	}
 	
-	public static <U,V extends Exception> Try<Opt<U>> optToTry(Opt<Try<U>> opt, Class<V> exceptionClass) {
+	public static <U,V extends Exception> Try<Opt<U>> toTry(Opt<Try<U>> opt) {
 		if(opt.isDefined())
 			if(opt.get().isSuccess())
 				return success(toOpt(opt.get().getPayload()));
 			else 
 				return opt.get().fail();
 		else
-			try {
-				return failure(exceptionClass.newInstance());
-			} catch (InstantiationException e) {
-				return failure(e);
-			} catch (IllegalAccessException e) {
-				return failure(e);
-			}
+			return success(Opt.<U>none());
 	}
 
 	public <A> Try<A> map(F1<T, Try<A>> lambda) {

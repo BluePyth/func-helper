@@ -2,7 +2,7 @@ package fr.bluepyth.funchelper.trylike;
 
 import static fr.bluepyth.funchelper.immutable.IList.list;
 import static fr.bluepyth.funchelper.option.Opt.toOpt;
-import static fr.bluepyth.funchelper.trylike.Try.optToTry;
+import static fr.bluepyth.funchelper.trylike.Try.toTry;
 import static fr.bluepyth.funchelper.trylike.Try.success;
 import static fr.bluepyth.funchelper.trylike.Try.trySeq;
 import static org.junit.Assert.assertEquals;
@@ -35,7 +35,7 @@ public class TryTest {
 	@Test
 	public void optToTry_nominal() {
 		Opt<Try<Integer>> a = toOpt((Try<Integer>) success(1));
-		Try<Opt<Integer>> result = optToTry(a, IllegalArgumentException.class);
+		Try<Opt<Integer>> result = toTry(a);
 		
 		System.out.println(a);
 		System.out.println(result);
