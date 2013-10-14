@@ -44,7 +44,7 @@ public abstract class IList<T> {
 		return list;
 	}
 	
-	public static <U> IList<U> list(Collection<U> c) {
+	public static <U> IList<U> list(Iterable<U> c) {
 		IList<U> list = nil();
 		if(c != null) {
 			for(U e : c) {
