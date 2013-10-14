@@ -4,7 +4,6 @@ import static fr.bluepyth.funchelper.Nothing.nothing;
 import static fr.bluepyth.funchelper.option.Opt.none;
 import static fr.bluepyth.funchelper.option.Opt.toOpt;
 
-import java.util.Collection;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import fr.bluepyth.funchelper.Nothing;
@@ -45,13 +44,25 @@ public abstract class IList<T> {
 	}
 	
 	public static <U> IList<U> list(Iterable<U> c) {
+		return revList(c).reverse();
+	}
+	
+	public static <U> IList<U> revList(U... elements) {
+		IList<U> list = nil();
+		for(int i = 0; i < elements.length; i++) {
+			list = list.prepend(elements[i]);
+		}
+		return list;
+	}
+	
+	public static <U> IList<U> revList(Iterable<U> c) {
 		IList<U> list = nil();
 		if(c != null) {
 			for(U e : c) {
 				list = list.prepend(e);
 			}
 		}
-		return list.reverse();
+		return list;
 	}
 	
 	/**
