@@ -1,7 +1,7 @@
-package fr.bluepyth.java.funchelper.function;
+package fr.bluepyth.funchelper.function;
 
-import static fr.bluepyth.java.funchelper.Nothing.nothing;
-import fr.bluepyth.java.funchelper.Nothing;
+import static fr.bluepyth.funchelper.Nothing.nothing;
+import fr.bluepyth.funchelper.Nothing;
 
 public interface F1<I, O> {
 	O apply(I input);

@@ -1,6 +1,6 @@
-package fr.bluepyth.java.funchelper.trylike;
+package fr.bluepyth.funchelper.trylike;
 
-import static fr.bluepyth.java.funchelper.trylike.Try.success;
+import static fr.bluepyth.funchelper.trylike.Try.success;
 
 public abstract class TryComposer<A, B> implements FTry<A, B> {
 	

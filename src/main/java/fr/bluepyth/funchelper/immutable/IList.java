@@ -1,12 +1,12 @@
-package fr.bluepyth.java.funchelper.immutable;
+package fr.bluepyth.funchelper.immutable;
 
-import static fr.bluepyth.java.funchelper.Nothing.nothing;
+import static fr.bluepyth.funchelper.Nothing.nothing;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import fr.bluepyth.java.funchelper.Nothing;
-import fr.bluepyth.java.funchelper.function.F1;
-import fr.bluepyth.java.funchelper.function.F2;
+import fr.bluepyth.funchelper.Nothing;
+import fr.bluepyth.funchelper.function.F1;
+import fr.bluepyth.funchelper.function.F2;
 
 /**
  * Immutable linked list. It resembles Scala's List.

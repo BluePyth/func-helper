@@ -1,15 +1,16 @@
-package fr.bluepyth.java.funchelper.immutable;
+package fr.bluepyth.funchelper.immutable;
 
-import static fr.bluepyth.java.funchelper.immutable.IList.list;
-import static fr.bluepyth.java.funchelper.immutable.IList.range;
+import static fr.bluepyth.funchelper.immutable.IList.list;
+import static fr.bluepyth.funchelper.immutable.IList.range;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.BlockJUnit4ClassRunner;
 
-import fr.bluepyth.java.funchelper.function.F1;
-import fr.bluepyth.java.funchelper.function.F2;
+import fr.bluepyth.funchelper.function.F1;
+import fr.bluepyth.funchelper.function.F2;
+import fr.bluepyth.funchelper.immutable.IList;
 
 @RunWith(BlockJUnit4ClassRunner.class)
 public class IListTest {

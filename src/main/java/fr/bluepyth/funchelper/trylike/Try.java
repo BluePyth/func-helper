@@ -1,12 +1,12 @@
-package fr.bluepyth.java.funchelper.trylike;
+package fr.bluepyth.funchelper.trylike;
 
-import static fr.bluepyth.java.funchelper.Nothing.nothing;
-import static fr.bluepyth.java.funchelper.option.Opt.toOpt;
-import fr.bluepyth.java.funchelper.Nothing;
-import fr.bluepyth.java.funchelper.function.F1;
-import fr.bluepyth.java.funchelper.function.F2;
-import fr.bluepyth.java.funchelper.immutable.IList;
-import fr.bluepyth.java.funchelper.option.Opt;
+import static fr.bluepyth.funchelper.Nothing.nothing;
+import static fr.bluepyth.funchelper.option.Opt.toOpt;
+import fr.bluepyth.funchelper.Nothing;
+import fr.bluepyth.funchelper.function.F1;
+import fr.bluepyth.funchelper.function.F2;
+import fr.bluepyth.funchelper.immutable.IList;
+import fr.bluepyth.funchelper.option.Opt;
 
 public abstract class Try<T> {
 	

@@ -1,10 +1,10 @@
-package fr.bluepyth.java.funchelper.trylike;
+package fr.bluepyth.funchelper.trylike;
 
-import static fr.bluepyth.java.funchelper.trylike.Try.emptySuccess;
-import static fr.bluepyth.java.funchelper.trylike.Try.failure;
-import static fr.bluepyth.java.funchelper.trylike.Try.success;
-import fr.bluepyth.java.funchelper.Nothing;
-import fr.bluepyth.java.funchelper.function.F1;
+import static fr.bluepyth.funchelper.trylike.Try.emptySuccess;
+import static fr.bluepyth.funchelper.trylike.Try.failure;
+import static fr.bluepyth.funchelper.trylike.Try.success;
+import fr.bluepyth.funchelper.Nothing;
+import fr.bluepyth.funchelper.function.F1;
 
 public interface FTry<I, O> extends F1<I, Try<O>> {
 	

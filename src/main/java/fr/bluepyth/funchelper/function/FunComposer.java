@@ -1,4 +1,4 @@
-package fr.bluepyth.java.funchelper.function;
+package fr.bluepyth.funchelper.function;
 
 
 public abstract class FunComposer<A,B> implements F1<A,B> {

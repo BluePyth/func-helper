@@ -1,6 +1,6 @@
-package fr.bluepyth.java.funchelper;
+package fr.bluepyth.funchelper;
 
-import fr.bluepyth.java.funchelper.function.F1;
+import fr.bluepyth.funchelper.function.F1;
 
 public final class Predef {
 	public static final F1<String, Boolean> isStrEmpty = new F1<String, Boolean>() {

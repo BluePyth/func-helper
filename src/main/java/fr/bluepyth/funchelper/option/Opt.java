@@ -1,8 +1,8 @@
-package fr.bluepyth.java.funchelper.option;
+package fr.bluepyth.funchelper.option;
 
 import java.util.NoSuchElementException;
 
-import fr.bluepyth.java.funchelper.function.F1;
+import fr.bluepyth.funchelper.function.F1;
 
 public abstract class Opt<T> {
 	

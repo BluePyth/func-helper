@@ -1,4 +1,4 @@
-package fr.bluepyth.java.funchelper.tuples;
+package fr.bluepyth.funchelper.tuples;
 
 public class T2<Left,Right> {
 	

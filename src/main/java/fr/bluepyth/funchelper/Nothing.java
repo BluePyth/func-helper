@@ -1,4 +1,4 @@
-package fr.bluepyth.java.funchelper;
+package fr.bluepyth.funchelper;
 
 public class Nothing {
 	public static final Nothing nothing = new Nothing();
