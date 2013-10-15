@@ -10,7 +10,6 @@ import org.junit.runners.BlockJUnit4ClassRunner;
 
 import fr.bluepyth.funchelper.function.F1;
 import fr.bluepyth.funchelper.function.F2;
-import fr.bluepyth.funchelper.immutable.IList;
 
 @RunWith(BlockJUnit4ClassRunner.class)
 public class IListTest {
@@ -19,6 +18,7 @@ public class IListTest {
 	private IList<Integer> mappedList = list(4, 5, 6);
 	private IList<Integer> filteredList = list(1, 3);
 	private IList<Integer> reversedList = list(3, 2, 1);
+	private IList<Integer> droppedList = list(3); 
 
 	@Test
 	public void map_nominal() {
@@ -75,5 +75,19 @@ public class IListTest {
 		String result = list.mkString(";");
 		
 		assertEquals("1;2;3", result);
+	}
+	
+	@Test
+	public void drop_nominal() {
+		IList<Integer> result = list.drop(2);
+		
+		assertEquals(droppedList, result);
+	}
+	
+	@Test
+	public void size_nominal() {
+		Integer size = list.size();
+		
+		assertEquals(Integer.valueOf(3), size);
 	}
 }

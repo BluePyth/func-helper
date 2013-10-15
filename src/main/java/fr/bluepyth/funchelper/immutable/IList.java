@@ -1,12 +1,15 @@
 package fr.bluepyth.funchelper.immutable;
 
 import static fr.bluepyth.funchelper.Nothing.nothing;
+import static fr.bluepyth.funchelper.option.Opt.none;
+import static fr.bluepyth.funchelper.option.Opt.toOpt;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import fr.bluepyth.funchelper.Nothing;
 import fr.bluepyth.funchelper.function.F1;
 import fr.bluepyth.funchelper.function.F2;
+import fr.bluepyth.funchelper.option.Opt;
 
 /**
  * Immutable linked list. It resembles Scala's List.
@@ -40,6 +43,28 @@ public abstract class IList<T> {
 		return list;
 	}
 	
+	public static <U> IList<U> list(Iterable<U> c) {
+		return revList(c).reverse();
+	}
+	
+	public static <U> IList<U> revList(U... elements) {
+		IList<U> list = nil();
+		for(int i = 0; i < elements.length; i++) {
+			list = list.prepend(elements[i]);
+		}
+		return list;
+	}
+	
+	public static <U> IList<U> revList(Iterable<U> c) {
+		IList<U> list = nil();
+		if(c != null) {
+			for(U e : c) {
+				list = list.prepend(e);
+			}
+		}
+		return list;
+	}
+	
 	/**
 	 * Returns a list containing numbers from 'from' to 'to-1'
 	 * 
@@ -69,6 +94,13 @@ public abstract class IList<T> {
 	 * @return the first element of this list
 	 */
 	public abstract T head();
+
+	public Opt<T> headOpt() {
+		if(isEmpty())
+			return none();
+		else
+			return toOpt(head());
+	}
 	
 	/**
 	 * @return the tail of this list
@@ -178,9 +210,24 @@ public abstract class IList<T> {
 		return new Cons<T>(element, this);
 	}
 	
+	/**
+	 * Drops the n first elements of this list
+	 * @param n the number of elements to drop
+	 * @return the remaining list, nil if all elements have been dropped
+	 */
+	public abstract IList<T> drop(int n);
+	
 	@Override
 	public String toString() {
 		return mkString("List(", ",", ")");
+	}
+	
+	public int size() {
+		return foldLeft(0, new F2<Integer, T, Integer>() {
+			public Integer apply(Integer i1, T i2) {
+				return i1 + 1;
+			}
+		});
 	}
 	
 	/**
@@ -258,6 +305,14 @@ public abstract class IList<T> {
 			else
 				return false;
 		}
+
+		@Override
+		public IList<T> drop(int n) {
+			if(n == 0)
+				return this;
+			else
+				return tail.drop(n - 1);
+		}
 		
 	}
 	
@@ -318,6 +373,11 @@ public abstract class IList<T> {
 				return false;
 			else 
 				return ((IList<?>) obj).isEmpty();
+		}
+
+		@Override
+		public IList<T> drop(int n) {
+			return this;
 		}
 	}
 	

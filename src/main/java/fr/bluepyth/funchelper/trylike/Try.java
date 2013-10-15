@@ -32,47 +32,54 @@ public abstract class Try<T> {
 		return list.foldLeft(success(IList.<T>nil()), new F2<Try<IList<T>>, Try<T>, Try<IList<T>>>() {
 			public Try<IList<T>> apply(Try<IList<T>> acc, final Try<T> listElem) {
 				
-				return acc.map(new FTry<IList<T>, IList<T>>() {
+				return acc.flatMap(new FTry<IList<T>, IList<T>>() {
 					public Try<IList<T>> apply(final IList<T> list) {
 						
-						return listElem.map(new FTry<T, IList<T>>() {
-							public Try<IList<T>> apply(T element) {
-								
-								return success(list.prepend(element));
+						return listElem.map(new F1<T, IList<T>>() {
+							public IList<T> apply(T element) {
+								return list.prepend(element);
 							}
 						});
 					}
 				});
 			}
-		}).map(new F1<IList<T>, Try<IList<T>>>() {
-			public Try<IList<T>> apply(IList<T> input) {
-				return success(input.reverse());
+		}).map(new F1<IList<T>, IList<T>>() {
+			public IList<T> apply(IList<T> input) {
+				return input.reverse();
 			}
 		});
 	}
 	
-	public static <U,V extends Exception> Try<Opt<U>> optToTry(Opt<Try<U>> opt, Class<V> exceptionClass) {
+	public static <U,V extends Exception> Try<Opt<U>> toTry(Opt<Try<U>> opt) {
 		if(opt.isDefined())
 			if(opt.get().isSuccess())
 				return success(toOpt(opt.get().getPayload()));
 			else 
 				return opt.get().fail();
 		else
-			try {
-				return failure(exceptionClass.newInstance());
-			} catch (InstantiationException e) {
-				return failure(e);
-			} catch (IllegalAccessException e) {
-				return failure(e);
-			}
+			return success(Opt.<U>none());
 	}
 
-	public <A> Try<A> map(F1<T, Try<A>> lambda) {
+	public <A> Try<A> flatMap(F1<T, Try<A>> lambda) {
 		if(isSuccess()) {
 			return lambda.apply(getPayload());
 		} else {
-			return new Failure<Exception, A>(this.getException());
+			return this.fail();
 		}
+	}
+	
+	public <A> Try<A> map(F1<T,A> lambda) {
+		if(isSuccess())
+			return success(lambda.apply(getPayload()));
+		else
+			return this.fail();
+	}
+
+	public static <A> Try<A> flatten(Try<Try<A>> in) {
+		if(in.isSuccess())
+			return in.getPayload();
+		else
+			return in.fail();
 	}
 	
 	public <E> Try<E> fail() {

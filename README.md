@@ -1,12 +1,12 @@
-[![Build Status](https://travis-ci.org/BluePyth/func-helper.png?branch=master)](https://travis-ci.org/BluePyth/func-helper)
-
 ## Functional helpers for java
+
+[![Build Status](https://travis-ci.org/BluePyth/func-helper.png?branch=master)](https://travis-ci.org/BluePyth/func-helper)
 
 This project is a really simple functional library. It provides only the building blocks that I lacked while working on a project. It is mostly inspired by what I've seen and used in the Scala language.
 
 ## Get it
 
-Func-helper is available in my maven repository as snapshots for now (API shouldn't break but you never know. GroupId expected to change for the first stable release).
+Func-helper is available in my maven repository.
 
 ```xml
 <!-- Repository -->
@@ -14,19 +14,15 @@ Func-helper is available in my maven repository as snapshots for now (API should
     <repository>
         <id>bluepyth</id>
         <name>BluePyth Repository</name>
-        <url>http://repository.bluepyth.fr/content/repositories/snapshots</url>
-	<snapshots>
-	    <enabled>true</enabled>
-	    <updatePolicy>always</updatePolicy>
-	</snapshots>
+        <url>http://repository.bluepyth.fr/content/groups/public</url>
     </repository>
 </repositories>
 
 <!-- Dependency -->
 <dependency>
-    <groupId>fr.bluepyth.java</groupId>
+    <groupId>fr.bluepyth</groupId>
     <artifactId>func-helper</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.1.0</version>
 </dependency>
 ```
 
@@ -37,8 +33,8 @@ Func-helper is available in my maven repository as snapshots for now (API should
 As building blocks of functional programming, they are present in this library. They are easy to use, but until Java 8, the syntax will look very heavy.
 
 ```java
-import static fr.bluepyth.java.funchelper.function.FunComposer.compose;
-import fr.bluepyth.java.funchelper.function.F1;
+import static fr.bluepyth.funchelper.function.FunComposer.compose;
+import fr.bluepyth.funchelper.function.F1;
 
 
 public class Functions {
@@ -71,10 +67,10 @@ public class Functions {
 Option[T] is a very handy structure in Scala. Guava has its own Optional<T>, but I didn't want to depend on any lib. Thus, Opt<T>
 
 ```java
-import static fr.bluepyth.java.funchelper.option.Opt.none;
-import static fr.bluepyth.java.funchelper.option.Opt.toOpt;
-import fr.bluepyth.java.funchelper.function.F1;
-import fr.bluepyth.java.funchelper.option.Opt;
+import static fr.bluepyth.funchelper.option.Opt.none;
+import static fr.bluepyth.funchelper.option.Opt.toOpt;
+import fr.bluepyth.funchelper.function.F1;
+import fr.bluepyth.funchelper.option.Opt;
 
 
 public class Option {
@@ -117,15 +113,15 @@ public class Option {
 This construct is an immutable linked list. It is based on the same implementation as Scala's List.
 
 ```java
-import static fr.bluepyth.java.funchelper.Nothing.nothing;
-import static fr.bluepyth.java.funchelper.immutable.IList.list;
-import static fr.bluepyth.java.funchelper.immutable.IList.nil;
-import static fr.bluepyth.java.funchelper.immutable.IList.range;
-import static fr.bluepyth.java.funchelper.immutable.IList.rangeIncl;
-import fr.bluepyth.java.funchelper.Nothing;
-import fr.bluepyth.java.funchelper.function.F1;
-import fr.bluepyth.java.funchelper.function.F2;
-import fr.bluepyth.java.funchelper.immutable.IList;
+import static fr.bluepyth.funchelper.Nothing.nothing;
+import static fr.bluepyth.funchelper.immutable.IList.list;
+import static fr.bluepyth.funchelper.immutable.IList.nil;
+import static fr.bluepyth.funchelper.immutable.IList.range;
+import static fr.bluepyth.funchelper.immutable.IList.rangeIncl;
+import fr.bluepyth.funchelper.Nothing;
+import fr.bluepyth.funchelper.function.F1;
+import fr.bluepyth.funchelper.function.F2;
+import fr.bluepyth.funchelper.immutable.IList;
 
 
 public class ImmutableList {
@@ -189,14 +185,14 @@ public class ImmutableList {
 This structure allows you to return success or failure information.
 
 ```java
-import static fr.bluepyth.java.funchelper.immutable.IList.list;
-import static fr.bluepyth.java.funchelper.trylike.Try.emptySuccess;
-import static fr.bluepyth.java.funchelper.trylike.Try.failure;
-import static fr.bluepyth.java.funchelper.trylike.Try.success;
-import static fr.bluepyth.java.funchelper.trylike.Try.trySeq;
-import fr.bluepyth.java.funchelper.immutable.IList;
-import fr.bluepyth.java.funchelper.trylike.FTry;
-import fr.bluepyth.java.funchelper.trylike.Try;
+import static fr.bluepyth.funchelper.immutable.IList.list;
+import static fr.bluepyth.funchelper.trylike.Try.emptySuccess;
+import static fr.bluepyth.funchelper.trylike.Try.failure;
+import static fr.bluepyth.funchelper.trylike.Try.success;
+import static fr.bluepyth.funchelper.trylike.Try.trySeq;
+import fr.bluepyth.funchelper.immutable.IList;
+import fr.bluepyth.funchelper.trylike.FTry;
+import fr.bluepyth.funchelper.trylike.Try;
 
 
 public class TryStructure {
