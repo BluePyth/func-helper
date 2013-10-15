@@ -22,7 +22,7 @@ Func-helper is available in my maven repository.
 <dependency>
     <groupId>fr.bluepyth</groupId>
     <artifactId>func-helper</artifactId>
-    <version>1.0.0</version>
+    <version>1.1.0</version>
 </dependency>
 ```
 
