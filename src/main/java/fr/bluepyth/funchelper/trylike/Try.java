@@ -35,18 +35,17 @@ public abstract class Try<T> {
 				return acc.flatMap(new FTry<IList<T>, IList<T>>() {
 					public Try<IList<T>> apply(final IList<T> list) {
 						
-						return listElem.flatMap(new FTry<T, IList<T>>() {
-							public Try<IList<T>> apply(T element) {
-								
-								return success(list.prepend(element));
+						return listElem.map(new F1<T, IList<T>>() {
+							public IList<T> apply(T element) {
+								return list.prepend(element);
 							}
 						});
 					}
 				});
 			}
-		}).flatMap(new F1<IList<T>, Try<IList<T>>>() {
-			public Try<IList<T>> apply(IList<T> input) {
-				return success(input.reverse());
+		}).map(new F1<IList<T>, IList<T>>() {
+			public IList<T> apply(IList<T> input) {
+				return input.reverse();
 			}
 		});
 	}
