@@ -6,7 +6,7 @@ import static fr.bluepyth.funchelper.trylike.Try.success;
 import fr.bluepyth.funchelper.Nothing;
 import fr.bluepyth.funchelper.function.F1;
 
-public interface FTry<I, O> extends F1<I, Try<O>> {
+public abstract class FTry<I, O> extends F1<I, Try<O>> {
 	
 	public static class Predef {
 	
@@ -18,7 +18,7 @@ public interface FTry<I, O> extends F1<I, Try<O>> {
 			};
 		}
 		
-		public static abstract class TryWrapper<U,V> implements FTry<U, V> {
+		public static abstract class TryWrapper<U,V> extends FTry<U, V> {
 			@Override
 			public Try<V> apply(U input) {
 				try {

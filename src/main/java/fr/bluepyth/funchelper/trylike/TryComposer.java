@@ -2,7 +2,7 @@ package fr.bluepyth.funchelper.trylike;
 
 import static fr.bluepyth.funchelper.trylike.Try.success;
 
-public abstract class TryComposer<A, B> implements FTry<A, B> {
+public abstract class TryComposer<A, B> extends FTry<A, B> {
 	
 	public static <A,B> TryComposer<A,B> composeTry(FTry<A,B> f1) {
 		return TryComposerNil.<B>nil().prepend(f1);
