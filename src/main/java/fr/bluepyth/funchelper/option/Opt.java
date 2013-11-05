@@ -1,8 +1,11 @@
 package fr.bluepyth.funchelper.option;
 
+import static fr.bluepyth.funchelper.trylike.Try.success;
+
 import java.util.NoSuchElementException;
 
 import fr.bluepyth.funchelper.function.F1;
+import fr.bluepyth.funchelper.trylike.Try;
 
 public abstract class Opt<T> {
 	// Helpers
@@ -53,6 +56,24 @@ public abstract class Opt<T> {
 		else
 			return (Opt<T>) other;
 	}
+
+	public Try<Opt<Object>> toTry() {
+		return toTry(Object.class);
+	}
+	
+	public <A> Try<Opt<A>> toTry(final Class<A> cls) {
+		if(isDefined() && get() instanceof Try) {
+			Try<?> i = (Try<?>) get();
+			if(i.isSuccess() && cls.isInstance(i.getPayload())) {
+				return success(toOpt(cls.cast(i.getPayload())));
+			} else {
+				return i.fail();
+			}
+		} else {
+			return success(Opt.<A>none());
+		}
+	}
+	
 	
 	public static class Some<T> extends Opt<T> {
 

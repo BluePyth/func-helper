@@ -1,12 +1,10 @@
 package fr.bluepyth.funchelper.trylike;
 
 import static fr.bluepyth.funchelper.Nothing.nothing;
-import static fr.bluepyth.funchelper.option.Opt.toOpt;
 import fr.bluepyth.funchelper.Nothing;
 import fr.bluepyth.funchelper.function.F1;
 import fr.bluepyth.funchelper.function.F2;
 import fr.bluepyth.funchelper.immutable.IList;
-import fr.bluepyth.funchelper.option.Opt;
 
 public abstract class Try<T> {
 	
@@ -48,16 +46,6 @@ public abstract class Try<T> {
 				return input.reverse();
 			}
 		});
-	}
-	
-	public static <U,V extends Exception> Try<Opt<U>> toTry(Opt<Try<U>> opt) {
-		if(opt.isDefined())
-			if(opt.get().isSuccess())
-				return success(toOpt(opt.get().getPayload()));
-			else 
-				return opt.get().fail();
-		else
-			return success(Opt.<U>none());
 	}
 
 	public <A> Try<A> flatMap(F1<T, Try<A>> lambda) {
