@@ -32,7 +32,7 @@ public abstract class Try<T> {
 		return list.foldLeft(success(IList.<T>nil()), new F2<Try<IList<T>>, Try<T>, Try<IList<T>>>() {
 			public Try<IList<T>> apply(Try<IList<T>> acc, final Try<T> listElem) {
 				
-				return acc.flatMap(new FTry<IList<T>, IList<T>>() {
+				return acc.flatMap(new FTry1<IList<T>, IList<T>>() {
 					public Try<IList<T>> apply(final IList<T> list) {
 						
 						return listElem.map(new F1<T, IList<T>>() {
@@ -86,7 +86,7 @@ public abstract class Try<T> {
 		return new Failure<Exception, E>(isFailure() ? getException() : new Exception());
 	}
 	
-	public <U> Try<U> transform(FTry<T, U> s, FTry<Exception, U> f) {
+	public <U> Try<U> transform(FTry1<T, U> s, FTry1<Exception, U> f) {
 		if(isSuccess())
 			return s.apply(getPayload());
 		else
