@@ -2,7 +2,7 @@ package fr.bluepyth.funchelper.trylike;
 
 import static fr.bluepyth.funchelper.immutable.IList.list;
 import static fr.bluepyth.funchelper.trylike.Try.success;
-import static fr.bluepyth.funchelper.trylike.Try.trySeq;
+import static fr.bluepyth.funchelper.trylike.Try.sequence;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -22,7 +22,7 @@ public class TryTest {
 	
 	@Test
 	public void trySeq_nominal() {
-		Try<IList<Integer>> result = trySeq(trylist);
+		Try<IList<Integer>> result = sequence(trylist);
 		
 		assertTrue(result.isSuccess());
 		assertEquals(list, result.getPayload());

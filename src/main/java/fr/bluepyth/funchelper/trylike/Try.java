@@ -26,7 +26,7 @@ public abstract class Try<T> {
 		return new Failure<E, T>(exception);
 	}
 	
-	public static <T> Try<IList<T>> trySeq(IList<Try<T>> list) {
+	public static <T> Try<IList<T>> sequence(IList<Try<T>> list) {
 		return list.foldLeft(success(IList.<T>nil()), new F2<Try<IList<T>>, Try<T>, Try<IList<T>>>() {
 			public Try<IList<T>> apply(Try<IList<T>> acc, final Try<T> listElem) {
 				
@@ -47,8 +47,15 @@ public abstract class Try<T> {
 			}
 		});
 	}
+	
+	public static <A> Try<A> flatten(Try<Try<A>> in) {
+		if(in.isSuccess())
+			return in.getPayload();
+		else
+			return in.fail();
+	}
 
-	public <A> Try<A> flatMap(F1<T, Try<A>> lambda) {
+	public <A> Try<A> flatMap(FTry1<T, A> lambda) {
 		if(isSuccess()) {
 			return lambda.apply(getPayload());
 		} else {
@@ -63,13 +70,6 @@ public abstract class Try<T> {
 			return this.fail();
 	}
 
-	public static <A> Try<A> flatten(Try<Try<A>> in) {
-		if(in.isSuccess())
-			return in.getPayload();
-		else
-			return in.fail();
-	}
-	
 	public <E> Try<E> fail() {
 		return new Failure<Exception, E>(isFailure() ? getException() : new Exception());
 	}
