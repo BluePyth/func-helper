@@ -12,7 +12,7 @@ public abstract class F2<I1, I2, O> {
 		};
 	}
 	
-	public <A> F2<I1,I2,A> comp(final F1<O, A> f) {
+	public <A> F2<I1,I2,A> then(final F1<O, A> f) {
 		return new F2<I1, I2, A>() {
 			@Override
 			public A apply(I1 i1, I2 i2) {
