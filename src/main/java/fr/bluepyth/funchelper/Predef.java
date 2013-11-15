@@ -5,7 +5,7 @@ import fr.bluepyth.funchelper.function.F1;
 import fr.bluepyth.funchelper.function.F2;
 
 public final class Predef {
-	
+
 	public static <A> F1<A,A> id() {
 		return new F1<A, A>() {
 			@Override
@@ -14,7 +14,7 @@ public final class Predef {
 			}
 		};
 	}
-	
+
 	public static <A> F1<A,Nothing> nothing1() {
 		return new F1<A, Nothing>() {
 			@Override
@@ -23,7 +23,7 @@ public final class Predef {
 			}
 		};
 	}
-	
+
 	public static <A,B> F2<A, B, Nothing> nothing2() {
 		return new F2<A, B, Nothing>() {
 			@Override
@@ -32,13 +32,13 @@ public final class Predef {
 			}
 		};
 	}
-	
+
 	public static final F1<String, Boolean> isStrEmpty = new F1<String, Boolean>() {
 		public Boolean apply(String input) {
 			return input.isEmpty();
 		}
 	};
-	
+
 	public static final F1<Object, String> objToString = new F1<Object, String>() {
 		public String apply(Object input) {
 			return input.toString();
