@@ -1,28 +1,14 @@
 package fr.bluepyth.funchelper.function;
 
-import static fr.bluepyth.funchelper.Nothing.nothing;
-import fr.bluepyth.funchelper.Nothing;
-
-public interface F1<I, O> {
-	O apply(I input);
+public abstract class F1<I, O> {
+	public abstract O apply(I input);
 	
-	public static class Predef {
-		public static <A> F1<A,A> id() {
-			return new F1<A, A>() {
-				@Override
-				public A apply(A input) {
-					return input;
-				}
-			};
-		}
-		
-		public static <A> F1<A,Nothing> nothing() {
-			return new F1<A, Nothing>() {
-				@Override
-				public Nothing apply(A input) {
-					return nothing;
-				}
-			};
-		}
+	public <T> F1<I, T> comp(final F1<O, T> next) {
+		return new F1<I, T>() {
+			@Override
+			public T apply(I input) {
+				return next.apply(F1.this.apply(input));
+			}
+		};
 	}
 }

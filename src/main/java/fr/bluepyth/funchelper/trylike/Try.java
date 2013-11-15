@@ -1,12 +1,10 @@
 package fr.bluepyth.funchelper.trylike;
 
 import static fr.bluepyth.funchelper.Nothing.nothing;
-import static fr.bluepyth.funchelper.option.Opt.toOpt;
 import fr.bluepyth.funchelper.Nothing;
 import fr.bluepyth.funchelper.function.F1;
 import fr.bluepyth.funchelper.function.F2;
 import fr.bluepyth.funchelper.immutable.IList;
-import fr.bluepyth.funchelper.option.Opt;
 
 public abstract class Try<T> {
 	
@@ -28,11 +26,11 @@ public abstract class Try<T> {
 		return new Failure<E, T>(exception);
 	}
 	
-	public static <T> Try<IList<T>> trySeq(IList<Try<T>> list) {
+	public static <T> Try<IList<T>> sequence(IList<Try<T>> list) {
 		return list.foldLeft(success(IList.<T>nil()), new F2<Try<IList<T>>, Try<T>, Try<IList<T>>>() {
 			public Try<IList<T>> apply(Try<IList<T>> acc, final Try<T> listElem) {
 				
-				return acc.flatMap(new FTry<IList<T>, IList<T>>() {
+				return acc.flatMap(new FTry1<IList<T>, IList<T>>() {
 					public Try<IList<T>> apply(final IList<T> list) {
 						
 						return listElem.map(new F1<T, IList<T>>() {
@@ -50,17 +48,14 @@ public abstract class Try<T> {
 		});
 	}
 	
-	public static <U,V extends Exception> Try<Opt<U>> toTry(Opt<Try<U>> opt) {
-		if(opt.isDefined())
-			if(opt.get().isSuccess())
-				return success(toOpt(opt.get().getPayload()));
-			else 
-				return opt.get().fail();
+	public static <A> Try<A> flatten(Try<Try<A>> in) {
+		if(in.isSuccess())
+			return in.getPayload();
 		else
-			return success(Opt.<U>none());
+			return in.fail();
 	}
 
-	public <A> Try<A> flatMap(F1<T, Try<A>> lambda) {
+	public <A> Try<A> flatMap(FTry1<T, A> lambda) {
 		if(isSuccess()) {
 			return lambda.apply(getPayload());
 		} else {
@@ -75,18 +70,11 @@ public abstract class Try<T> {
 			return this.fail();
 	}
 
-	public static <A> Try<A> flatten(Try<Try<A>> in) {
-		if(in.isSuccess())
-			return in.getPayload();
-		else
-			return in.fail();
-	}
-	
 	public <E> Try<E> fail() {
 		return new Failure<Exception, E>(isFailure() ? getException() : new Exception());
 	}
 	
-	public <U> Try<U> transform(FTry<T, U> s, FTry<Exception, U> f) {
+	public <U> Try<U> transform(FTry1<T, U> s, FTry1<Exception, U> f) {
 		if(isSuccess())
 			return s.apply(getPayload());
 		else

@@ -1,10 +1,14 @@
 package fr.bluepyth.funchelper.option;
 
+import static fr.bluepyth.funchelper.trylike.Try.success;
+
 import java.util.NoSuchElementException;
 
 import fr.bluepyth.funchelper.function.F1;
+import fr.bluepyth.funchelper.trylike.Try;
 
 public abstract class Opt<T> {
+	// Helpers
 	
 	public static <A> Opt<A> toOpt(A a) {
 		return a == null ? new None<A>() : new Some<A>(a);
@@ -14,9 +18,18 @@ public abstract class Opt<T> {
 		return new None<A>();
 	}
 	
+	// Methods
+	
 	public abstract boolean isDefined();
 	
 	public abstract T get();
+	
+	public T getOrElse(T defaultValue) {
+		if(isDefined())
+			return get();
+		else
+			return defaultValue;
+	}
 	
 	public <U> Opt<U> map(F1<T, U> f) {
 		if(isDefined())
@@ -43,13 +56,24 @@ public abstract class Opt<T> {
 		else
 			return (Opt<T>) other;
 	}
-	
-	public T getOrElse(T defaultValue) {
-		if(isDefined())
-			return get();
-		else
-			return defaultValue;
+
+	public Try<Opt<Object>> toTry() {
+		return toTry(Object.class);
 	}
+	
+	public <A> Try<Opt<A>> toTry(final Class<A> cls) {
+		if(isDefined() && get() instanceof Try) {
+			Try<?> i = (Try<?>) get();
+			if(i.isSuccess() && cls.isInstance(i.getPayload())) {
+				return success(toOpt(cls.cast(i.getPayload())));
+			} else {
+				return i.fail();
+			}
+		} else {
+			return success(Opt.<A>none());
+		}
+	}
+	
 	
 	public static class Some<T> extends Opt<T> {
 

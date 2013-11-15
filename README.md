@@ -1,6 +1,6 @@
 ## Functional helpers for java
 
-[![Build Status](https://travis-ci.org/BluePyth/func-helper.png?branch=master)](https://travis-ci.org/BluePyth/func-helper)
+[![Build Status](https://travis-ci.org/BluePyth/func-helper.png?branch=develop)](https://travis-ci.org/BluePyth/func-helper)
 
 This project is a really simple functional library. It provides only the building blocks that I lacked while working on a project. It is mostly inspired by what I've seen and used in the Scala language.
 
