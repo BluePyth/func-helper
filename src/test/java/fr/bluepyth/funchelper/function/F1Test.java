@@ -24,7 +24,7 @@ public class F1Test {
 	@Test
 	public void then_nominal() {
 		
-		Integer result = intToString.comp(stringToInt).apply(2);
+		Integer result = intToString.then(stringToInt).apply(2);
 		
 		Assert.assertEquals(Integer.valueOf(2), result);
 	}
