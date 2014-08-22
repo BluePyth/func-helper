@@ -4,7 +4,6 @@ import static fr.bluepyth.funchelper.Nothing.nothing;
 import fr.bluepyth.funchelper.Nothing;
 import fr.bluepyth.funchelper.function.F1;
 import fr.bluepyth.funchelper.immutable.IList;
-import fr.bluepyth.funchelper.trylike.FTry1.Predef.TryWrapper;
 
 public abstract class Try<T> {
 	
