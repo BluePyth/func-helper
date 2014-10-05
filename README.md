@@ -93,16 +93,6 @@ public class ImmutableList {
 This structure allows you to return success or failure information.
 
 ```java
-import static fr.bluepyth.funchelper.immutable.IList.list;
-import static fr.bluepyth.funchelper.trylike.Try.emptySuccess;
-import static fr.bluepyth.funchelper.trylike.Try.failure;
-import static fr.bluepyth.funchelper.trylike.Try.success;
-import static fr.bluepyth.funchelper.trylike.Try.trySeq;
-import fr.bluepyth.funchelper.immutable.IList;
-import fr.bluepyth.funchelper.trylike.FTry;
-import fr.bluepyth.funchelper.trylike.Try;
-
-
 public class TryStructure {
 	
 	public TryStructure() {
