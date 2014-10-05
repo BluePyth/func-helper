@@ -190,7 +190,7 @@ public abstract class IList<T> {
 	/**
 	 * This function allows one to traverse the list while computing a value.
 	 * For example it can be used to compute the sum of the elements of a list:
-	 * 	 list(1,2).foldLeft(0, (a,b) => a+b)
+	 * 	 list(1,2).foldLeft(0, (a,b) -&gt; a+b)
 	 * @param init the initial value
 	 * @param f the function that will be applied
 	 * @return a value of type U
