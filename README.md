@@ -6,88 +6,26 @@ This project is a really simple functional library. It provides only the buildin
 
 ## Get it
 
-Func-helper is available in my maven repository.
-
 ```xml
-<!-- Repository -->
-<repositories>
-    <repository>
-        <id>bluepyth</id>
-        <name>BluePyth Repository</name>
-        <url>http://repository.bluepyth.fr/content/groups/public</url>
-    </repository>
-</repositories>
-
-<!-- Dependency -->
 <dependency>
-    <groupId>fr.bluepyth</groupId>
+    <groupId>fr.sertelon.fp</groupId>
     <artifactId>func-helper</artifactId>
-    <version>1.1.0</version>
+    <version>2.0.0</version>
 </dependency>
 ```
 
 ## Features
 
-### Functions
-
-As building blocks of functional programming, they are present in this library. They are easy to use, but until Java 8, the syntax will look very heavy.
-
-```java
-import static fr.bluepyth.funchelper.function.FunComposer.compose;
-import fr.bluepyth.funchelper.function.F1;
-
-
-public class Functions {
-	
-	F1<Integer, String> intToString = new F1<Integer, String>() {
-		@Override
-		public String apply(Integer input) {
-			return String.valueOf(input);
-		}
-	};
-	
-	F1<String, Integer> stringToInt = new F1<String, Integer>() {
-		@Override
-		public Integer apply(String input) {
-			return Integer.valueOf(input);
-		}
-	};
-
-	public Functions() {
-		intToString.apply(2);   // => "2"
-		stringToInt.apply("3"); // => 3
-		
-		compose(intToString, stringToInt).apply(2); // => 2
-	}
-}
-```
-
 ### Opt
 
-Option[T] is a very handy structure in Scala. Guava has its own Optional<T>, but I didn't want to depend on any lib. Thus, Opt<T>
+Option[T] is a very handy structure in Scala. Guava has its own Optional<T>, but I didn't want to depend on any big lib. Thus, Opt<T>
 
 ```java
-import static fr.bluepyth.funchelper.option.Opt.none;
-import static fr.bluepyth.funchelper.option.Opt.toOpt;
-import fr.bluepyth.funchelper.function.F1;
-import fr.bluepyth.funchelper.option.Opt;
-
-
 public class Option {
 	
-	F1<Integer, String> intToString = new F1<Integer, String>() {
-		@Override
-		public String apply(Integer input) {
-			return String.valueOf(input);
-		}
-	};
+	Function<Integer, String> intToString = input -> String.valueOf(input);
 	
-	F1<String, Boolean> isEmpty = new F1<String, Boolean>() {
-		@Override
-		public Boolean apply(String input) {
-			return input.isEmpty();
-		}
-	};
+	Function<String, Boolean> isEmpty = input -> input.isEmpty();
 	
 	public Option() {
 				
@@ -113,21 +51,9 @@ public class Option {
 This construct is an immutable linked list. It is based on the same implementation as Scala's List.
 
 ```java
-import static fr.bluepyth.funchelper.Nothing.nothing;
-import static fr.bluepyth.funchelper.immutable.IList.list;
-import static fr.bluepyth.funchelper.immutable.IList.nil;
-import static fr.bluepyth.funchelper.immutable.IList.range;
-import static fr.bluepyth.funchelper.immutable.IList.rangeIncl;
-import fr.bluepyth.funchelper.Nothing;
-import fr.bluepyth.funchelper.function.F1;
-import fr.bluepyth.funchelper.function.F2;
-import fr.bluepyth.funchelper.immutable.IList;
-
-
 public class ImmutableList {
 	
 	public ImmutableList() {
-		
 		nil();  // => empty list
 		IList<Integer> l = list(1, 2, 3); // => List(1,2,3)
 		range(0, 3); // List(0,1,2)
@@ -148,34 +74,16 @@ public class ImmutableList {
 		l.foldLeft(0, sum); // => 6
 	}
 	
-	F1<Integer, String> intToString = new F1<Integer, String>() {
-		@Override
-		public String apply(Integer input) {
-			return String.valueOf(input);
-		}
+	Function<Integer, String> intToString = input -> String.valueOf(input);
+
+	Function<Integer, Boolean> isOdd = input -> input % 2 == 1;
+
+	Function<Integer, Nothing> print = input -> {
+		System.out.println(input);
+		return nothing;
 	};
 	
-	F1<Integer, Boolean> isOdd = new F1<Integer, Boolean>() {
-		@Override
-		public Boolean apply(Integer input) {
-			return input % 2 == 1;
-		}
-	};
-	
-	F1<Integer, Nothing> print = new F1<Integer, Nothing>() {
-		@Override
-		public Nothing apply(Integer input) {
-			System.out.println(input);
-			return nothing;
-		}
-	};
-	
-	F2<Integer, Integer, Integer> sum = new F2<Integer, Integer, Integer>() {
-		@Override
-		public Integer apply(Integer i1, Integer i2) {
-			return i1 + i2;
-		}
-	};
+	BiFunction<Integer, Integer, Integer> sum = (i1, i2) ->  i1 + i2;
 }
 
 ```
@@ -199,9 +107,9 @@ public class TryStructure {
 	
 	public TryStructure() {
 		
-		emptySuccess(); // => Success<Nothing>(nothing)
-		failure(new Exception()); // => Failure<Exception, Object>
-		success(Integer.valueOf(2)); // => Success<Integer>(2)
+		Try.emptySuccess(); // => Success<Nothing>(nothing)
+		Try.failure(new Exception()); // => Failure<Exception, Object>
+		Try.success(Integer.valueOf(2)); // => Success<Integer>(2)
 		
 		strToDouble.apply("2.34"); // => Success<Double>(2.34)
 		strToDouble.apply("xxxx"); // => Failure(NumberFormatException, Double>
@@ -214,30 +122,22 @@ public class TryStructure {
 		Try<IList<Integer>> tl = trySeq(l); // => Success(List(1,2,3)) 
 	}
 	
-	FTry<String, Double> strToDouble = new FTry<String, Double>() {
-		@Override
-		public Try<Double> apply(String input) {
-			try {
-				return success(Double.valueOf("xxx"));
-			} catch (NumberFormatException e) {
-				return failure(e);
-			}
+	FTry<String, Double> strToDouble = input -> {
+		try {
+			return success(Double.valueOf("xxx"));
+		} catch (NumberFormatException e) {
+			return failure(e);
 		}
 	};
 	
-	FTry<Double, String> doubleToStr = new FTry<Double, String>() {
-		@Override
-		public Try<String> apply(Double input) {
-			return success(input.toString());
-		}
-	};
+	FTry<Double, String> doubleToStr = input -> Try.success(input.toString());
 	
 }
 ```
 
 ## Roadmap
 
-If someone else than me is to use this library, I'm open to feedback! Will add whatever I'd like to use in Java.
+If someone else than me is to use this library, I'm open to feedback! Will add whatever I'd like to use in Java, as long as I can keep this lib lightweight, otherwise, I should be better off using an existing one.
 
 ## License
 
