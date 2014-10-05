@@ -3,7 +3,6 @@ package fr.bluepyth.funchelper.trylike;
 import static fr.bluepyth.funchelper.Nothing.nothing;
 import fr.bluepyth.funchelper.Nothing;
 import fr.bluepyth.funchelper.function.F1;
-import fr.bluepyth.funchelper.function.F2;
 import fr.bluepyth.funchelper.immutable.IList;
 
 public abstract class Try<T> {
@@ -27,25 +26,13 @@ public abstract class Try<T> {
 	}
 	
 	public static <T> Try<IList<T>> sequence(IList<Try<T>> list) {
-		return list.foldLeft(success(IList.<T>nil()), new F2<Try<IList<T>>, Try<T>, Try<IList<T>>>() {
-			public Try<IList<T>> apply(Try<IList<T>> acc, final Try<T> listElem) {
-				
-				return acc.flatMap(new FTry1<IList<T>, IList<T>>() {
-					public Try<IList<T>> apply(final IList<T> list) {
-						
-						return listElem.map(new F1<T, IList<T>>() {
-							public IList<T> apply(T element) {
-								return list.prepend(element);
-							}
-						});
-					}
-				});
-			}
-		}).map(new F1<IList<T>, IList<T>>() {
-			public IList<T> apply(IList<T> input) {
-				return input.reverse();
-			}
-		});
+		return list //
+			.foldLeft(success(IList.<T>nil()), (Try<IList<T>> acc, Try<T> listElem) -> //
+				acc.flatMap(l -> //
+					listElem.map(element -> l.prepend(element)) //
+				) //
+			) //
+			.map(input -> input.reverse());
 	}
 	
 	public static <A> Try<A> flatten(Try<Try<A>> in) {

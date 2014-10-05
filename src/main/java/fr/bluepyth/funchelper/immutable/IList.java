@@ -164,22 +164,19 @@ public abstract class IList<T> {
 		
 		sb.append(start);
 		
-		foreach(new F1<T, Nothing>() {
-			public Nothing apply(T input) {
-				if(first.get()) {
-					first.set(false);
-				} else {
-					sb.append(sep);
-				}
-				sb.append(input);
-				return nothing;
+		foreach((T input) -> {
+			if(first.get()) {
+				first.set(false);
+			} else {
+				sb.append(sep);
 			}
+			sb.append(input);
+			return nothing;
 		});
 		
 		sb.append(end);
 		
 		return sb.toString();
-		
 	}
 	
 	/**
@@ -223,10 +220,8 @@ public abstract class IList<T> {
 	}
 	
 	public int size() {
-		return foldLeft(0, new F2<Integer, T, Integer>() {
-			public Integer apply(Integer i1, T i2) {
-				return i1 + 1;
-			}
+		return foldLeft(0, (Integer i1, T i2) -> {
+			return i1 + 1;
 		});
 	}
 	
