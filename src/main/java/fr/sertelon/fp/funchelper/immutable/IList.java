@@ -5,10 +5,10 @@ import static fr.sertelon.fp.funchelper.option.Opt.none;
 import static fr.sertelon.fp.funchelper.option.Opt.toOpt;
 
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.function.BiFunction;
+import java.util.function.Function;
 
 import fr.sertelon.fp.funchelper.Nothing;
-import fr.sertelon.fp.funchelper.function.F1;
-import fr.sertelon.fp.funchelper.function.F2;
 import fr.sertelon.fp.funchelper.option.Opt;
 
 /**
@@ -35,6 +35,7 @@ public abstract class IList<T> {
 	 * @param elements the elements that should be added to the list
 	 * @return the expected list
 	 */
+	@SafeVarargs
 	public static <U> IList<U> list(U... elements) {
 		IList<U> list = nil();
 		for(int i = elements.length - 1; i >= 0; i--) {
@@ -47,6 +48,7 @@ public abstract class IList<T> {
 		return revList(c).reverse();
 	}
 	
+	@SafeVarargs
 	public static <U> IList<U> revList(U... elements) {
 		IList<U> list = nil();
 		for(int i = 0; i < elements.length; i++) {
@@ -130,19 +132,19 @@ public abstract class IList<T> {
 	 * @param predicate the filtering function
 	 * @return this list, only with filtered elements
 	 */
-	public IList<T> filter(F1<T, Boolean> predicate) {
+	public IList<T> filter(Function<T, Boolean> predicate) {
 		return filterAcc(predicate, IList.<T>nil());
 	}
-	protected abstract IList<T> filterAcc(F1<T, Boolean> p, IList<T> acc);
+	protected abstract IList<T> filterAcc(Function<T, Boolean> p, IList<T> acc);
 	
 	/**
 	 * @param f the function that will transform each element
 	 * @return this list, with each element transformed by f
 	 */
-	public <U> IList<U> map(F1<T,U> f) {
+	public <U> IList<U> map(Function<T,U> f) {
 		return mapAcc(f, IList.<U>nil());
 	}
-	protected abstract <U> IList<U> mapAcc(F1<T,U> f, IList<U> acc);
+	protected abstract <U> IList<U> mapAcc(Function<T,U> f, IList<U> acc);
 
 	/**
 	 * @param sep the separator
@@ -183,7 +185,7 @@ public abstract class IList<T> {
 	 * @param f the function to be applied on each element of the list
 	 * @return nothing (function has only side effects)
 	 */
-	public abstract Nothing foreach(F1<T, Nothing> f);
+	public abstract Nothing foreach(Function<T, Nothing> f);
 	
 	/**
 	 * This function allows one to traverse the list while computing a value.
@@ -193,10 +195,10 @@ public abstract class IList<T> {
 	 * @param f the function that will be applied
 	 * @return a value of type U
 	 */
-	public <U> U foldLeft(U init, F2<U, T, U> f) {
+	public <U> U foldLeft(U init, BiFunction<U, T, U> f) {
 		return foldLeftAcc(f, init);
 	}
-	protected abstract <U> U foldLeftAcc(F2<U,T,U> f, U acc);
+	protected abstract <U> U foldLeftAcc(BiFunction<U,T,U> f, U acc);
 	
 	/**
 	 * Adds an element to the beginning of this list
@@ -265,22 +267,22 @@ public abstract class IList<T> {
 		}
 
 		@Override
-		public IList<T> filterAcc(F1<T, Boolean> p, IList<T> acc) {
+		public IList<T> filterAcc(Function<T, Boolean> p, IList<T> acc) {
 			return tail.filterAcc(p, p.apply(head) ? acc.prepend(head) : acc);
 		}
 
 		@Override
-		protected <U> IList<U> mapAcc(F1<T, U> f, IList<U> acc) {
+		protected <U> IList<U> mapAcc(Function<T, U> f, IList<U> acc) {
 			return tail.mapAcc(f, acc.prepend(f.apply(head)));
 		}
 
 		@Override
-		protected <U> U foldLeftAcc(F2<U, T, U> f, U acc) {
+		protected <U> U foldLeftAcc(BiFunction<U, T, U> f, U acc) {
 			return tail.foldLeftAcc(f, f.apply(acc, head));
 		}
 
 		@Override
-		public Nothing foreach(F1<T, Nothing> f) {
+		public Nothing foreach(Function<T, Nothing> f) {
 			f.apply(head);
 			return tail.foreach(f);
 		}
@@ -343,22 +345,22 @@ public abstract class IList<T> {
 		}
 
 		@Override
-		public IList<T> filterAcc(F1<T, Boolean> p, IList<T> acc) {
+		public IList<T> filterAcc(Function<T, Boolean> p, IList<T> acc) {
 			return acc.reverse();
 		}
 
 		@Override
-		protected <U> IList<U> mapAcc(F1<T, U> f, IList<U> acc) {
+		protected <U> IList<U> mapAcc(Function<T, U> f, IList<U> acc) {
 			return acc.reverse();
 		}
 
 		@Override
-		protected <U> U foldLeftAcc(F2<U, T, U> f, U acc) {
+		protected <U> U foldLeftAcc(BiFunction<U, T, U> f, U acc) {
 			return acc;
 		}
 
 		@Override
-		public Nothing foreach(F1<T, Nothing> f) {
+		public Nothing foreach(Function<T, Nothing> f) {
 			return nothing;
 		}
 		

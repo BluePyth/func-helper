@@ -3,8 +3,8 @@ package fr.sertelon.fp.funchelper.option;
 import static fr.sertelon.fp.funchelper.trylike.Try.success;
 
 import java.util.NoSuchElementException;
+import java.util.function.Function;
 
-import fr.sertelon.fp.funchelper.function.F1;
 import fr.sertelon.fp.funchelper.trylike.Try;
 
 public abstract class Opt<T> {
@@ -31,14 +31,14 @@ public abstract class Opt<T> {
 			return defaultValue;
 	}
 	
-	public <U> Opt<U> map(F1<T, U> f) {
+	public <U> Opt<U> map(Function<T, U> f) {
 		if(isDefined())
 			return toOpt(f.apply(get()));
 		else
 			return none();
 	}
 	
-	public Opt<T> filter(F1<T, Boolean> p) {
+	public Opt<T> filter(Function<T, Boolean> p) {
 		return toOpt(isDefined() && p.apply(get()) ? get() : null);
 	}
 	

@@ -1,8 +1,10 @@
 package fr.sertelon.fp.funchelper.trylike;
 
 import static fr.sertelon.fp.funchelper.Nothing.nothing;
+
+import java.util.function.Function;
+
 import fr.sertelon.fp.funchelper.Nothing;
-import fr.sertelon.fp.funchelper.function.F1;
 import fr.sertelon.fp.funchelper.immutable.IList;
 
 public abstract class Try<T> {
@@ -50,7 +52,7 @@ public abstract class Try<T> {
 		}
 	}
 	
-	public <A> Try<A> map(F1<T,A> lambda) {
+	public <A> Try<A> map(Function<T,A> lambda) {
 		if(isSuccess())
 			return success(lambda.apply(getPayload()));
 		else

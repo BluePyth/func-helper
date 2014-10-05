@@ -4,12 +4,12 @@ import static fr.sertelon.fp.funchelper.immutable.IList.list;
 import static fr.sertelon.fp.funchelper.immutable.IList.range;
 import static org.junit.Assert.assertEquals;
 
+import java.util.function.BiFunction;
+import java.util.function.Function;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.BlockJUnit4ClassRunner;
-
-import fr.sertelon.fp.funchelper.function.F1;
-import fr.sertelon.fp.funchelper.function.F2;
 
 @RunWith(BlockJUnit4ClassRunner.class)
 public class IListTest {
@@ -23,7 +23,7 @@ public class IListTest {
 	@Test
 	public void map_nominal() {
 		
-		IList<Integer> result = list.map(new F1<Integer, Integer>() {
+		IList<Integer> result = list.map(new Function<Integer, Integer>() {
 			public Integer apply(Integer input) {
 				return input + 3;
 			}
@@ -35,7 +35,7 @@ public class IListTest {
 	@Test
 	public void filter_nominal() {
 		
-		IList<Integer> result = list.filter(new F1<Integer, Boolean>() {
+		IList<Integer> result = list.filter(new Function<Integer, Boolean>() {
 			public Boolean apply(Integer input) {
 				return input % 2 == 1;
 			}
@@ -54,7 +54,7 @@ public class IListTest {
 	
 	@Test
 	public void foldLeft_nominal() {
-		Integer result = list.foldLeft(0, new F2<Integer, Integer, Integer>() {
+		Integer result = list.foldLeft(0, new BiFunction<Integer, Integer, Integer>() {
 			public Integer apply(Integer i1, Integer i2) {
 				return i1 + i2;
 			}

@@ -3,10 +3,12 @@ package fr.sertelon.fp.funchelper.trylike;
 import static fr.sertelon.fp.funchelper.trylike.Try.emptySuccess;
 import static fr.sertelon.fp.funchelper.trylike.Try.failure;
 import static fr.sertelon.fp.funchelper.trylike.Try.success;
-import fr.sertelon.fp.funchelper.Nothing;
-import fr.sertelon.fp.funchelper.function.F1;
 
-public interface FTry1<I, O> extends F1<I, Try<O>> {
+import java.util.function.Function;
+
+import fr.sertelon.fp.funchelper.Nothing;
+
+public interface FTry1<I, O> extends Function<I, Try<O>> {
 	
 	public default  <A> FTry1<I, A> then(final FTry1<O, A> f) {
 		return (I input) -> FTry1.this.apply(input).flatMap(f);
