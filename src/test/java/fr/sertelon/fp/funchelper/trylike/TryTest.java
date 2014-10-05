@@ -1,8 +1,8 @@
-package fr.bluepyth.funchelper.trylike;
+package fr.sertelon.fp.funchelper.trylike;
 
-import static fr.bluepyth.funchelper.immutable.IList.list;
-import static fr.bluepyth.funchelper.trylike.Try.success;
-import static fr.bluepyth.funchelper.trylike.Try.sequence;
+import static fr.sertelon.fp.funchelper.immutable.IList.list;
+import static fr.sertelon.fp.funchelper.trylike.Try.sequence;
+import static fr.sertelon.fp.funchelper.trylike.Try.success;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -10,7 +10,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.BlockJUnit4ClassRunner;
 
-import fr.bluepyth.funchelper.immutable.IList;
+import fr.sertelon.fp.funchelper.immutable.IList;
 
 @RunWith(BlockJUnit4ClassRunner.class)
 public class TryTest {

@@ -1,4 +1,4 @@
-package fr.bluepyth.funchelper.function;
+package fr.sertelon.fp.funchelper.function;
 
 import org.junit.Assert;
 import org.junit.Test;

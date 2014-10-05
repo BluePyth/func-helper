@@ -1,7 +1,7 @@
-package fr.bluepyth.funchelper.option;
+package fr.sertelon.fp.funchelper.option;
 
-import static fr.bluepyth.funchelper.option.Opt.toOpt;
-import static fr.bluepyth.funchelper.trylike.Try.success;
+import static fr.sertelon.fp.funchelper.option.Opt.toOpt;
+import static fr.sertelon.fp.funchelper.trylike.Try.success;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -9,7 +9,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.BlockJUnit4ClassRunner;
 
-import fr.bluepyth.funchelper.trylike.Try;
+import fr.sertelon.fp.funchelper.trylike.Try;
 
 @RunWith(BlockJUnit4ClassRunner.class)
 public class OptTest {
