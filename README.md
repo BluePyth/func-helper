@@ -52,38 +52,38 @@ This construct is an immutable linked list. It is based on the same implementati
 
 ```java
 public class ImmutableList {
-	
-	public ImmutableList() {
-		nil();  // => empty list
-		IList<Integer> l = list(1, 2, 3); // => List(1,2,3)
-		range(0, 3); // List(0,1,2)
-		rangeIncl(0, 3); // List(0,1,2,3)
-		
-		l.get(1); // => 2
-		l.head(); // => 1
-		l.tail(); // => List(2,3)
-		l.isEmpty(); // => false
-		l.reverse(); // => List(3,2,1)
-		l.mkString("-"); // => 1-2-3
-		l.mkString("[", ":", "]"); // => [1:2:3]
-		l.prepend(0); // => List(0,1,2,3)
-		
-		l.map(intToString); // => List("1","2","3")
-		l.filter(isOdd); // => List(1,3)
-		l.foreach(print); // => prints 1, then 2, then 3
-		l.foldLeft(0, sum); // => 6
-	}
-	
-	Function<Integer, String> intToString = input -> String.valueOf(input);
 
-	Function<Integer, Boolean> isOdd = input -> input % 2 == 1;
+    public ImmutableList() {
+        nil();  // => empty list
+        IList<Integer> l = list(1, 2, 3); // => List(1,2,3)
+        range(0, 3); // List(0,1,2)
+        rangeIncl(0, 3); // List(0,1,2,3)
 
-	Function<Integer, Nothing> print = input -> {
-		System.out.println(input);
-		return nothing;
-	};
-	
-	BiFunction<Integer, Integer, Integer> sum = (i1, i2) ->  i1 + i2;
+        l.get(1); // => 2
+        l.head(); // => 1
+        l.tail(); // => List(2,3)
+        l.isEmpty(); // => false
+        l.reverse(); // => List(3,2,1)
+        l.mkString("-"); // => 1-2-3
+        l.mkString("[", ":", "]"); // => [1:2:3]
+        l.prepend(0); // => List(0,1,2,3)
+
+        l.map(intToString); // => List("1","2","3")
+        l.filter(isOdd); // => List(1,3)
+        l.foreach(print); // => prints 1, then 2, then 3
+        l.foldLeft(0, sum); // => 6
+    }
+
+    Function<Integer, String> intToString = input -> String.valueOf(input);
+
+    Function<Integer, Boolean> isOdd = input -> input % 2 == 1;
+
+    Function<Integer, Nothing> print = input -> {
+        System.out.println(input);
+        return nothing;
+    };
+
+    BiFunction<Integer, Integer, Integer> sum = (i1, i2) ->  i1 + i2;
 }
 
 ```
