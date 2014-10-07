@@ -16,8 +16,7 @@ import fr.sertelon.fp.funchelper.immutable.IList;
 public class TryTest {
 	
 	private IList<Integer> list = list(1, 2, 3);
-	@SuppressWarnings("unchecked")
-	private IList<Try<Integer>> trylist = list((Try<Integer>) success(1), (Try<Integer>) success(2), (Try<Integer>) success(3)); 
+	private IList<Try<Integer>> trylist = list(success(1), success(2), success(3)); 
 	
 	
 	@Test
