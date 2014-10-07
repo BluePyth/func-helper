@@ -124,6 +124,26 @@ public class TryStructure {
 }
 ```
 
+### Utils
+
+```java
+public class Utils {
+	
+	public Utils() {
+		// Tuple2
+		T2<String, Long> tuple = t2("hello", 2L);
+		String hello = tuple._1; // "hello"
+		Long two = tuple._2; // 2
+		
+		// Predef functions. Useful functions commonly used
+		Predef.isStrEmpty.apply(""); // true
+		Predef.isStrNotEmpty.apply(""); // false
+		Predef.objToString.apply(2); // "2"
+	}
+	
+}
+```
+
 ## Roadmap
 
 If someone else than me is to use this library, I'm open to feedback! Will add whatever I'd like to use in Java, as long as I can keep this lib lightweight, otherwise, I should be better off using an existing one.
