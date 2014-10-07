@@ -94,34 +94,33 @@ This structure allows you to return success or failure information.
 
 ```java
 public class TryStructure {
-	
-	public TryStructure() {
-		
-		Try.emptySuccess(); // => Success<Nothing>(nothing)
-		Try.failure(new Exception()); // => Failure<Exception, Object>
-		Try.success(Integer.valueOf(2)); // => Success<Integer>(2)
-		
-		strToDouble.apply("2.34"); // => Success<Double>(2.34)
-		strToDouble.apply("xxxx"); // => Failure(NumberFormatException, Double>
-		
-		strToDouble.apply("2.34").map(doubleToStr); // => Success<String>("2.34")
-		
-		IList<Try<Integer>> l = 
-			list((Try<Integer>) success(1), (Try<Integer>) success(2), (Try<Integer>) success(3));
-		
-		Try<IList<Integer>> tl = trySeq(l); // => Success(List(1,2,3)) 
-	}
-	
-	FTry<String, Double> strToDouble = input -> {
-		try {
-			return success(Double.valueOf("xxx"));
-		} catch (NumberFormatException e) {
-			return failure(e);
-		}
-	};
-	
-	FTry<Double, String> doubleToStr = input -> Try.success(input.toString());
-	
+
+    public TryStructure() {
+
+        Try.emptySuccess(); // => Success<Nothing>(nothing)
+        Try.failure(new Exception()); // => Failure<Exception, Object>
+        Try.success(Integer.valueOf(2)); // => Success<Integer>(2)
+
+        strToDouble.apply("2.34"); // => Success<Double>(2.34)
+        strToDouble.apply("xxxx"); // => Failure(NumberFormatException, Double>
+
+        strToDouble.apply("2.34").map(doubleToStr); // => Success<String>("2.34")
+
+        IList<Try<Integer>> l = list(success(1), success(2), success(3));
+
+        Try<IList<Integer>> tl = Try.sequence(l); // => Success(List(1,2,3)) 
+    }
+
+    FTry1<String, Double> strToDouble = input -> {
+        try {
+            return success(Double.valueOf("xxx"));
+        } catch (NumberFormatException e) {
+            return failure(e);
+        }
+    };
+
+    FTry1<Double, String> doubleToStr = input -> Try.success(input.toString());
+
 }
 ```
 
